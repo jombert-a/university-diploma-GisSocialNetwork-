@@ -8,6 +8,7 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 
 import {setCoords} from "../../store/reducers/global";
 import { connect } from "react-redux";
+import {apiLocation} from "../../api";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicmJydGEiLCJhIjoiY2trODU3ZTl3MGtldTJ2bXZhZjg2bDA2YyJ9.UNEZm5Vf_VqCc-gTOd7gmA';
 
@@ -32,10 +33,15 @@ const GMap = (props) => {
     React.useEffect(() => {
         if (!map.current) return; // wait for map to initialize
         map.current.on('moveend', () => {
-            setLng(map.current.getCenter().lng.toFixed(4));
-            setLat(map.current.getCenter().lat.toFixed(4));
+            let coords = {
+                lng: map.current.getCenter().lng.toFixed(4),
+                lat: map.current.getCenter().lat.toFixed(4)
+            }
+            setLng(coords.lng);
+            setLat(coords.lat);
             setZoom(map.current.getZoom().toFixed(2));
-            props.setCoords({lng: map.current.getCenter().lng.toFixed(4), lat: map.current.getCenter().lat.toFixed(4)});
+            props.setCoords(coords);
+            apiLocation.getCityByCoords(coords);
         });
     });
 
