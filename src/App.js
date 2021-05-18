@@ -1,13 +1,19 @@
 import './style/App.css';
-import GFooter from "./components/layout/GFooter";
-import GMap from "./components/map/GMap";
+import GMain from "./components/layout/GMain";
+import {BrowserRouter} from "react-router-dom";
+import { Provider } from 'react-redux'
+import store from "./store";
+
 
 function App() {
   return (
-    <div className="App">
-        <GMap />
-        <GFooter />
-    </div>
+      <Provider store={store}>
+          <BrowserRouter>
+              <div className="App">
+                  <GMain />
+              </div>
+          </BrowserRouter>
+      </Provider>
   );
 }
 

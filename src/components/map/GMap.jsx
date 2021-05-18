@@ -6,6 +6,9 @@ import GMapNavigation from "./GMapNavigation";
 
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
+import {setCoords} from "../../store/reducers/global";
+import { connect } from "react-redux";
+
 mapboxgl.accessToken = 'pk.eyJ1IjoicmJydGEiLCJhIjoiY2trODU3ZTl3MGtldTJ2bXZhZjg2bDA2YyJ9.UNEZm5Vf_VqCc-gTOd7gmA';
 
 const GMap = (props) => {
@@ -23,10 +26,21 @@ const GMap = (props) => {
             center: [lng, lat],
             zoom: zoom
         });
+        props.setCoords({lng: map.current.getCenter().lng.toFixed(4), lat: map.current.getCenter().lat.toFixed(4)});
     });
 
+    React.useEffect(() => {
+        if (!map.current) return; // wait for map to initialize
+        map.current.on('moveend', () => {
+            setLng(map.current.getCenter().lng.toFixed(4));
+            setLat(map.current.getCenter().lat.toFixed(4));
+            setZoom(map.current.getZoom().toFixed(2));
+            props.setCoords({lng: map.current.getCenter().lng.toFixed(4), lat: map.current.getCenter().lat.toFixed(4)});
+        });
+    });
+
+
     const updateZoom = (newZoom) => {
-        console.log(zoom);
         if ((zoom + newZoom) !== 20 && (zoom + newZoom) !== 0)
         {
             setZoom(zoom + newZoom);
@@ -36,6 +50,9 @@ const GMap = (props) => {
 
     return (
         <div className="map-wrapper">
+            <div className="sidebar">
+                Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+            </div>
             <GSearch />
             <GMapNavigation setZoom={updateZoom} />
             <div ref={mapContainer} className="map-container"/>
@@ -43,4 +60,7 @@ const GMap = (props) => {
     )
 };
 
-export default GMap;
+export default connect(
+    null,
+    { setCoords }
+) (GMap);
