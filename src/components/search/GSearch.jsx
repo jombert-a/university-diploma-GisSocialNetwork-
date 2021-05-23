@@ -1,19 +1,14 @@
 import React from 'react'
 
 import '../../style/search/GSearch.css'
-import Icons from "../common/icons";
+import {useSelector} from "react-redux";
 
 const GSearch = (props) => {
+    let city = useSelector(state => state.global.location);
+    let placeholder = city !== 'area' ? `Поиск в г. ${city}` : `Поиск`;
     return (
         <div className="g-search">
-            <input className="g-search__input" placeholder="фестиваль"/>
-            <Icons
-                name='documents-outline'
-                color='#fff'
-                size='32'
-                className='button-left-panel'
-            />
-            <div className="g-search__options" />
+            <input className="g-search__input" placeholder={placeholder}/>
         </div>
     )
 };

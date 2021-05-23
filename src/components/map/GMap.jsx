@@ -1,23 +1,24 @@
 import React from 'react'
 
 import '../../style/map/GMap.css';
-import GSearch from "../search/GSearch";
 import GMapNavigation from "./GMapNavigation";
 
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
-import {setCoords} from "../../store/reducers/global";
-import { connect } from "react-redux";
+import {setCity, setCoords} from "../../store/reducers/globalReducer";
+import {connect} from "react-redux";
 import {apiLocation} from "../../api";
+import GSideBar from "../layout/GSideBar";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicmJydGEiLCJhIjoiY2trODU3ZTl3MGtldTJ2bXZhZjg2bDA2YyJ9.UNEZm5Vf_VqCc-gTOd7gmA';
 
 const GMap = (props) => {
     const mapContainer = React.useRef(null);
     const map = React.useRef(null);
-    const [lng, setLng] = React.useState(-70.9);
-    const [lat, setLat] = React.useState(42.35);
+    const [lng] = React.useState(56.0414);
+    const [lat] = React.useState(54.7431);
     const [zoom, setZoom] = React.useState(9);
+
 
     React.useEffect(() => {
         if (map.current) return; // initialize map only once
@@ -37,11 +38,22 @@ const GMap = (props) => {
                 lng: map.current.getCenter().lng.toFixed(4),
                 lat: map.current.getCenter().lat.toFixed(4)
             }
-            setLng(coords.lng);
-            setLat(coords.lat);
-            setZoom(map.current.getZoom().toFixed(2));
             props.setCoords(coords);
-            apiLocation.getCityByCoords(coords);
+            apiLocation.getCityByCoords(coords)
+                .then ( response => props.setCity(response) );
+            // const canvas = map.current.getCanvas()
+            // const w = canvas.width
+            // const h = canvas.height
+            // const cUL = map.current.unproject ([0,0]).toArray()
+            // const cLR = map.current.unproject ([w,h]).toArray()
+            // if (zoom >= 15) {
+            //     apiLocation.getObjectsByCoords(cUL, cLR)
+            //         .then ( data => {
+            //             data.map(el => {
+            //                 return '';
+            //             });
+            //         });
+            // }
         });
     });
 
@@ -56,17 +68,15 @@ const GMap = (props) => {
 
     return (
         <div className="map-wrapper">
-            <div className="sidebar">
-                Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+            <div ref={mapContainer} className="map-container">
+                <GMapNavigation setZoom={updateZoom} />
+                <GSideBar />
             </div>
-            <GSearch />
-            <GMapNavigation setZoom={updateZoom} />
-            <div ref={mapContainer} className="map-container"/>
         </div>
     )
 };
 
 export default connect(
     null,
-    { setCoords }
+    { setCoords, setCity }
 ) (GMap);
