@@ -15,7 +15,7 @@ export const GSwiper = (props) => {
             spaceBetween={50}
             slidesPerView={3}
         >
-            {props.array.map(el =>  <SwiperSlide>{el}</SwiperSlide>)}
+            {props.array.map( (el, index) =>  <SwiperSlide key={index}>{el}</SwiperSlide>)}
         </Swiper>
     );
 };

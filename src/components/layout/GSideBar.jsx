@@ -2,23 +2,32 @@ import React from 'react'
 import '../../style/layout/GSideBar.css';
 import Icons from "../common/icons";
 import GSearch from "../search/GSearch";
-import {useSelector} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {GSwiper} from "../common/swiper";
+import GSideBarInfo from "./GSideBarInfo";
+import {setSelectedObject} from "../../store/reducers/mapObjectsReducer";
 
 
 const GSideBar = (props) => {
     let [hidden, setHidden] = React.useState(false);
-    let location = useSelector(state => state.global.location);
-    let placeholder = location !== 'area' ? `${location}` : `Район`;
-    let interestingArray = [
+    const location = useSelector(state => state.global.location);
+    const placeholder = location !== 'area' ? `${location}` : `Район`;
+    const interestingArray = [
         <div className={`g-side-bar__interesting`}>1</div>,
         <div className={`g-side-bar__interesting`}>2</div>,
         <div className={`g-side-bar__interesting`}>3</div>,
         <div className={`g-side-bar__interesting`}>4</div>
-    ]
+    ];
+    const selectedObject = useSelector(state => state.mapObjects.selectedObject);
+    React.useEffect(
+        () => {
+            if (selectedObject) setHidden(false);
+        }, [selectedObject]
+    )
     return (
         <div className={`g-side-bar`}>
             <div className={`g-side-bar__inner ${hidden ? 'g-side-bar__inner--hidden' : ''}`}>
+                {selectedObject && <GSideBarInfo object={selectedObject}/>}
                 <div className={`g-side-bar__header`}>
                     <GSearch />
                     <h3>{placeholder}</h3>
@@ -71,7 +80,8 @@ const GSideBar = (props) => {
                     <div className={`g-side-bar__magic`}>Подобрать для меня</div>
                 </div>
             </div>
-            <div  className={`g-side-bar__hide-btn ${hidden ? 'g-side-bar__hide-btn--active' : ''}`} onClick={() => setHidden(!hidden)}>
+            <div  className={`g-side-bar__hide-btn ${hidden ? 'g-side-bar__hide-btn--active' : ''} ${selectedObject ? 'g-side-bar__hide-btn--down' : ''}`}
+                  onClick={() => setHidden(!hidden)}>
                 <Icons
                     name='arrow'
                     color='#000'
@@ -79,8 +89,23 @@ const GSideBar = (props) => {
                     className=''
                 />
             </div>
+            {
+                selectedObject &&
+                <div className={`g-side-bar__hide-btn`}
+                     onClick={() => props.setSelectedObject(null)}>
+                    <Icons
+                        name='close'
+                        color='#000'
+                        size='32'
+                        className=''
+                    />
+                </div>
+            }
         </div>
     )
 }
 
-export default  GSideBar;
+export default connect(
+    null,
+    { setSelectedObject }
+) (GSideBar);
