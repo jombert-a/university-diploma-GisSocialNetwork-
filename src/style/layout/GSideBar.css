@@ -43,6 +43,10 @@
     list-style: none;
 }
 
+.g-side-bar__nav-link.active {
+    color: red;
+}
+
 .g-side-bar__hide-btn {
     position: absolute;
     padding: 4px;

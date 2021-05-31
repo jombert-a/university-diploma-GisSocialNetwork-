@@ -1,11 +1,14 @@
 const SET_COORDS = "SET_COORDS"
 const SET_CITY = "SET_CITY"
+export const ADD_TYPE = "ADD_TYPE"
+export const DELETE_TYPE = "DELETE_TYPE"
 export const GET_CITY = "GET_CITY"
 
 const initialState = {
     location: 'area',
     lngCenter: null,
-    latCenter: null
+    latCenter: null,
+    types: []
 }
 /* SET */
 
@@ -23,9 +26,17 @@ export const setCoords = content => ({
     }
 })
 
+export const addType = payload => ({
+    type: ADD_TYPE,
+    payload
+})
+export const deleteType = payload => ({
+    type: DELETE_TYPE,
+    payload
+})
+
 /* GET */
 export const getCity = (payload) => {
-    console.log('get_city');
     return {type: GET_CITY, payload}
 };
 
@@ -59,7 +70,18 @@ export function globalReducer (state = initialState, action) {
                     ...state,
                     location: 'area'
                 }
-
+        }
+        case ADD_TYPE: {
+            return {
+                ...state,
+                types: [...state.types, action.payload]
+            }
+        }
+        case DELETE_TYPE: {
+            return {
+                ...state,
+                types: state.types.filter(el => el !== action.payload)
+            }
         }
         default:
             return state;

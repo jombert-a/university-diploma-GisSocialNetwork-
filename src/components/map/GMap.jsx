@@ -1,21 +1,24 @@
 import React, {useEffect} from 'react'
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 
 import { MapContainer, TileLayer} from 'react-leaflet';
 import '../../style/map/GMapLeafet.css';
 import 'leaflet/dist/leaflet.css';
 
-import {apiLocation} from "../../api";
+import {apiEvents, apiLocation, apiObjects} from "../../api";
 
 import {setCity, setCoords} from "../../store/reducers/globalReducer";
 import {setObjects} from "../../store/reducers/mapObjectsReducer";
 
 import GMapMarkers from "./GMapMarkers";
+import {setEvents} from "../../store/reducers/eventsReducer";
+import {Link} from "react-router-dom";
 
 const GMap = (props) => {
     const center = [54.7230799, 55.9213715];
-    const zoom = 13;
-    const [map, setMap] = React.useState();;
+    const zoom = 10;
+    const [map, setMap] = React.useState();
+    const types = useSelector(state => state.global.types);
 
     useEffect(() => {
         if (!map) return;
@@ -38,14 +41,21 @@ const GMap = (props) => {
             const cUL = corners.getNorthEast();
             const cLR = corners.getSouthWest();
             if (zoom <= 15) {
-                setTimeout(
-                    () => {
-                        apiLocation.getObjectsByCoords(cUL, cLR)
-                            .then ( data => {
-                                props.setObjects(data);
-                            });
-                    }, 500
-                )
+                types.forEach(el => {
+                    switch(el) {
+                        case 'objects':
+                            apiObjects.getObjectsByCoords(cUL, cLR)
+                                .then ( data => {
+                                    props.setObjects(data);
+                                });
+                            break;
+                        case 'events':
+                            apiEvents.getEventsByCoords(cUL, cLR)
+                                .then ( data => props.setEvents(data));
+                        default:
+                            return '';
+                    }
+                })
             }
         })
     });
@@ -63,11 +73,12 @@ const GMap = (props) => {
                 />
                 <GMapMarkers />
             </MapContainer>
+            <Link to="/account" className={'g-map__account-link'} />
         </div>
     )
 };
 
 export default connect(
     null,
-    { setCoords, setCity, setObjects }
+    { setCoords, setCity, setObjects, setEvents }
 ) (GMap);

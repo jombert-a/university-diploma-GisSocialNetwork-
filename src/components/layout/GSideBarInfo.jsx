@@ -27,6 +27,14 @@ const GSideBarInfo = (props) => {
     ));
 
     let [tab, setTab] = React.useState('contacts');
+    let [newReview, setNewReview] = React.useState('');
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        console.log(newReview);
+        setNewReview('');
+    }
 
     const tabs = () => {
         switch(tab) {
@@ -37,13 +45,23 @@ const GSideBarInfo = (props) => {
             default:
                 return (
                     <div>
-                        <span>Отзывы:</span>
-                        {reviews.map(el => (
-                            <div className={'g-side-bar-info__review'}>
-                                <span>Пользователь {el.userId}</span>
-                                <p>{el.reviewText}</p>
-                                <span>Оценка: {el.ratingValue}</span>
-                            </div>))}
+                        <form onSubmit={handleSubmit}>
+                            <label>
+                                <p>Оставить отзыв:</p>
+                                <textarea value={newReview} onChange={(e) => setNewReview(e.target.value)}/>
+                            </label>
+                            <button>Отправить</button>
+                        </form>
+                        <p>Отзывы:</p>
+                        {
+                            reviews.map(el => (
+                                <div className={'g-side-bar-info__review'}>
+                                    <span>Пользователь {el.userId}</span>
+                                    <p>{el.reviewText}</p>
+                                    <span>Оценка: {el.ratingValue}</span>
+                                </div>
+                            ))
+                        }
                     </div>
                 )
 

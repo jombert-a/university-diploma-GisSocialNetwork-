@@ -18,22 +18,62 @@ function getIcon(_iconSize) {
 }
 
 const GMapMarkers = props => {
-    const markersInfo = useSelector(state => state.mapObjects.objects);
-    const markers = markersInfo.map( (el, index) => (
-        <Marker
-            key={index}
-            position={el.way.coordinates.reverse()}
-            icon={getIcon(48)}
-            eventHandlers={
-                {
-                    click: () => props.setSelectedObject(el)
-                }
-            }>
-        </Marker>
-    ));
+    const types = useSelector(state => state.global.types);
+
+    const objectMarkersInfo = useSelector(state => state.mapObjects.objects);
+    const [objectMarkers, setObjectsMarkers] = React.useState([]);
+
+    React.useEffect(
+        () => {
+            if (types.includes('objects')) {
+                setObjectsMarkers(objectMarkersInfo.map( (el, index) => (
+                    <Marker
+                        key={index}
+                        position={el.way.coordinates.reverse()}
+                        icon={getIcon(48)}
+                        eventHandlers={
+                            {
+                                click: () => props.setSelectedObject(el)
+                            }
+                        }>
+                    </Marker>
+                )));
+            }
+            else {
+                setObjectsMarkers([]);
+            }
+        }, [types, objectMarkersInfo]
+    )
+
+    const eventsInfo = useSelector(state => state.events.events);
+    const [eventMarkers, setEventsMarkers] = React.useState();
+
+    React.useEffect(
+        () => {
+            if (types.includes('events')) {
+                setEventsMarkers(eventsInfo.map( (el, index) => (
+                    <Marker
+                        key={index}
+                        position={el.way.coordinates.reverse()}
+                        icon={getIcon(48)}
+                        eventHandlers={
+                            {
+                                // click: () => props.setSelectedObject(el)
+                            }
+                        }>
+                    </Marker>
+                )));
+            }
+            else {
+                setEventsMarkers([]);
+            }
+        }, [types, eventsInfo]
+    )
+
     return (
         <>
-            {markers}
+            {objectMarkers}
+            {eventMarkers}
         </>
     )
 }

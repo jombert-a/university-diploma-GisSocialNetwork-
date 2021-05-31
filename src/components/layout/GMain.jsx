@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {Switch, Route, useHistory} from "react-router-dom";
 import {getCoords, getLocation} from "../../store/reducers/globalReducer";
 import GSideBar from "./GSideBar";
+import GAccount from "../account/GAccount";
 
 const GMain = (props) => {
     let history = useHistory();
@@ -16,9 +17,12 @@ const GMain = (props) => {
     return (
         <main>
             <Switch>
-                <Route path="/">
+                <Route path={`/${props.location}`}>
                     <GMap />
                     <GSideBar/>
+                </Route>
+                <Route path="/account">
+                    <GAccount />
                 </Route>
             </Switch>
         </main>

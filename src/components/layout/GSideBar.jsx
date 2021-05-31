@@ -2,14 +2,16 @@ import React from 'react'
 import '../../style/layout/GSideBar.css';
 import Icons from "../common/icons";
 import GSearch from "../search/GSearch";
-import {connect, useSelector} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {GSwiper} from "../common/swiper";
 import GSideBarInfo from "./GSideBarInfo";
 import {setSelectedObject} from "../../store/reducers/mapObjectsReducer";
+import {ADD_TYPE, DELETE_TYPE} from "../../store/reducers/globalReducer";
 
 
 const GSideBar = (props) => {
     let [hidden, setHidden] = React.useState(false);
+    let types = useSelector(state => state.global.types);
     const location = useSelector(state => state.global.location);
     const placeholder = location !== 'area' ? `${location}` : `Район`;
     const interestingArray = [
@@ -19,11 +21,31 @@ const GSideBar = (props) => {
         <div className={`g-side-bar__interesting`}>4</div>
     ];
     const selectedObject = useSelector(state => state.mapObjects.selectedObject);
+    const dispatch = useDispatch();
+
+    function typesHandler(type) {
+        if (types.includes(type)) {
+            deleteTypeHandler(type)
+        }
+        else {
+            addTypeHandler(type);
+        }
+    }
+
+    function deleteTypeHandler(type) {
+        dispatch({type: DELETE_TYPE, payload: type});
+    }
+
+    function  addTypeHandler(type) {
+        dispatch({type: ADD_TYPE, payload: type});
+    }
+
     React.useEffect(
         () => {
             if (selectedObject) setHidden(false);
         }, [selectedObject]
     )
+
     return (
         <div className={`g-side-bar`}>
             <div className={`g-side-bar__inner ${hidden ? 'g-side-bar__inner--hidden' : ''}`}>
@@ -35,8 +57,10 @@ const GSideBar = (props) => {
                 <div className={`g-side-bar__body`}>
                     <h4> Навигация </h4>
                     <ul className={`g-side-bar__nav`}>
-                        <li className={`g-side-bar__nav-link`}> Cобытия </li>
-                        <li className={`g-side-bar__nav-link`}> Объекты </li>
+                        <li className={`g-side-bar__nav-link ${types.includes('events') ? 'active' : ''}`}
+                            onClick={() => typesHandler('events')}> Cобытия </li>
+                        <li className={`g-side-bar__nav-link ${types.includes('objects') ? 'active' : ''}`}
+                            onClick={() => typesHandler('objects')}> Объекты </li>
                         <li className={`g-side-bar__nav-link`}> Места   </li>
                         <li className={`g-side-bar__nav-link`}> Машруты </li>
                     </ul>
