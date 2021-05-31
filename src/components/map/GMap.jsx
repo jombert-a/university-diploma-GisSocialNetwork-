@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
-import {connect, useSelector} from "react-redux";
+
+import {connect, useDispatch, useSelector} from "react-redux";
 
 import { MapContainer, TileLayer} from 'react-leaflet';
 import '../../style/map/GMapLeafet.css';
@@ -7,18 +8,50 @@ import 'leaflet/dist/leaflet.css';
 
 import {apiEvents, apiLocation, apiObjects} from "../../api";
 
-import {setCity, setCoords} from "../../store/reducers/globalReducer";
-import {setObjects} from "../../store/reducers/mapObjectsReducer";
+import {SET_CITY, SET_COORDS, setCity, setCoords} from "../../store/reducers/globalReducer";
+import {SET_OBJECTS, setObjects} from "../../store/reducers/mapObjectsReducer";
+import {SET_EVENTS, setEvents} from "../../store/reducers/eventsReducer";
 
 import GMapMarkers from "./GMapMarkers";
-import {setEvents} from "../../store/reducers/eventsReducer";
+
 import {Link} from "react-router-dom";
 
 const GMap = (props) => {
-    const center = [54.7230799, 55.9213715];
-    const zoom = 10;
+    const [center, setCenter] = React.useState([54.7230799, 55.9213715]);
+    const zoom = 13;
     const [map, setMap] = React.useState();
     const types = useSelector(state => state.global.types);
+    const dispatch = useDispatch();
+
+    function apiCallsByTypes(types) {
+        console.log('api calls');
+        if (zoom <= 15) {
+            const corners = map.getBounds();
+            const cUL = corners.getNorthEast();
+            const cLR = corners.getSouthWest();
+            types.forEach(el => {
+                switch(el) {
+                    case 'objects':
+                        apiObjects.getObjectsByCoords(cUL, cLR)
+                            .then ( data => dispatch({type: SET_OBJECTS, payload: data} ));
+                        break;
+                    case 'events':
+                        apiEvents.getEventsByCoords(cUL, cLR)
+                            .then ( data => dispatch({type: SET_EVENTS, payload: data} ));
+                        break;
+                    default:
+                        break;
+                }
+            })
+        }
+    }
+
+    useEffect(() => {
+        if (types && map) {
+            apiCallsByTypes(types)
+        }
+    }, [types])
+
 
     useEffect(() => {
         if (!map) return;
@@ -29,36 +62,21 @@ const GMap = (props) => {
                 lat: map.getCenter().lat
             }
             // отправляем в стор
-            props.setCoords(coords);
+            dispatch({type: SET_COORDS, payload: coords})
             // сайд запрос к апи, получаем ифнормацию о городе
             // так делать нельзя, но это быстрее, чем вводить санки или сагу
             apiLocation.getCityByCoords(coords)
-                .then ( response => {
-                    props.setCity(response)
-                });
+                 .then ( response => {
+                     dispatch({type: SET_CITY, payload: response})
+                 })
             // получаем объекты по левой верхней и правой нижне координатам
-            const corners = map.getBounds();
-            const cUL = corners.getNorthEast();
-            const cLR = corners.getSouthWest();
-            if (zoom <= 15) {
-                types.forEach(el => {
-                    switch(el) {
-                        case 'objects':
-                            apiObjects.getObjectsByCoords(cUL, cLR)
-                                .then ( data => {
-                                    props.setObjects(data);
-                                });
-                            break;
-                        case 'events':
-                            apiEvents.getEventsByCoords(cUL, cLR)
-                                .then ( data => props.setEvents(data));
-                        default:
-                            return '';
-                    }
-                })
-            }
+            apiCallsByTypes(types)
         })
+        // map.on('click', function () {
+        //     console.log('clicked');
+        // })
     });
+
     return (
         <div>
             <MapContainer

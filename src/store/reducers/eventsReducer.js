@@ -12,7 +12,6 @@ export const setEvents = payload => ({
 export function eventsReducer (state = initialState, action) {
     switch (action.type) {
         case SET_EVENTS:
-            console.log(action);
             return {
                 ...state,
                 events: action.payload

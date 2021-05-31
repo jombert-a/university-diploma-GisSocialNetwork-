@@ -34,6 +34,7 @@ const GSideBar = (props) => {
 
     function deleteTypeHandler(type) {
         dispatch({type: DELETE_TYPE, payload: type});
+        dispatch({type: `SET_${type.toUpperCase()}`, payload: []});
     }
 
     function  addTypeHandler(type) {

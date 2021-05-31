@@ -52,7 +52,6 @@ export const apiEvents = {
     getEventsByCoords (cul, clr) {
         return instance.get(`/Events/GetPreviewByCoord/coord?lat1=${cul.lat}&lng1=${cul.lng}&lat2=${clr.lat}&lng2=${clr.lng}`)
             .then( response => {
-                console.log(response);
                 return response.data
             } )
     }

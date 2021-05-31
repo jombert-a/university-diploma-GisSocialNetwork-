@@ -1,5 +1,5 @@
-const SET_OBJECTS = "SET_OBJECTS";
-const SET_SELECTED_OBJECT = "SET_SELECTED_OBJECT";
+export const SET_OBJECTS = "SET_OBJECTS";
+export const SET_SELECTED_OBJECT = "SET_SELECTED_OBJECT";
 
 const initialState = {
     objects: [],

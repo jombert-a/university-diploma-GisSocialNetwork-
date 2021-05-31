@@ -1,5 +1,5 @@
-const SET_COORDS = "SET_COORDS"
-const SET_CITY = "SET_CITY"
+export const SET_COORDS = "SET_COORDS"
+export const SET_CITY = "SET_CITY"
 export const ADD_TYPE = "ADD_TYPE"
 export const DELETE_TYPE = "DELETE_TYPE"
 export const GET_CITY = "GET_CITY"
@@ -18,12 +18,9 @@ export const setCity = payload => ({
     }
 )
 
-export const setCoords = content => ({
+export const setCoords = payload => ({
     type: SET_COORDS,
-    payload: {
-        lng: content.lng,
-        lat: content.lat
-    }
+    payload
 })
 
 export const addType = payload => ({

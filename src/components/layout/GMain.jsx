@@ -17,12 +17,12 @@ const GMain = (props) => {
     return (
         <main>
             <Switch>
-                <Route path={`/${props.location}`}>
-                    <GMap />
-                    <GSideBar/>
-                </Route>
                 <Route path="/account">
                     <GAccount />
+                </Route>
+                <Route path={`/`}>
+                    <GMap />
+                    <GSideBar/>
                 </Route>
             </Switch>
         </main>

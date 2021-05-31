@@ -22,7 +22,7 @@ const GSideBarInfo = (props) => {
 
     const photos = photoArray.map(el => (
         <div className={'g-side-bar-info__image'}>
-            <img src={`http://139.162.168.53:8989/api/Photos/GetImgThumb/${el}`} />
+            <img alt='картинка' src={`http://139.162.168.53:8989/api/Photos/GetImgThumb/${el}`} />
         </div>
     ));
 
