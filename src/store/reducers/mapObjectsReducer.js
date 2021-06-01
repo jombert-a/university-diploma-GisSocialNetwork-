@@ -30,7 +30,6 @@ export function mapObjectsReducer (state = initialState, action) {
             }
         }
         case SET_SELECTED_OBJECT: {
-            console.log('set selected');
             return {
                 ...state,
                 selectedObject: action.payload

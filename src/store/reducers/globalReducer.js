@@ -3,13 +3,19 @@ export const SET_CITY = "SET_CITY"
 export const ADD_TYPE = "ADD_TYPE"
 export const DELETE_TYPE = "DELETE_TYPE"
 export const GET_CITY = "GET_CITY"
+export const SET_SELECTED_TYPE = "SET_SELECTED_TYPE"
 
 const initialState = {
-    location: 'area',
+    location: {
+        en: 'area',
+        ru: 'район'
+    },
     lngCenter: null,
     latCenter: null,
-    types: []
+    types: [],
+    selectedType: ''
 }
+
 /* SET */
 
 export const setCity = payload => ({
@@ -27,8 +33,14 @@ export const addType = payload => ({
     type: ADD_TYPE,
     payload
 })
+
 export const deleteType = payload => ({
     type: DELETE_TYPE,
+    payload
+})
+
+export const setSelectedType = payload => ({
+    type: SET_SELECTED_TYPE,
     payload
 })
 
@@ -60,12 +72,18 @@ export function globalReducer (state = initialState, action) {
             if (action.payload.belongs)
                 return {
                     ...state,
-                    location: action.payload.en
+                    location: {
+                        en: action.payload.en,
+                        ru: action.payload.ru
+                    }
                 }
             else
                 return {
                     ...state,
-                    location: 'area'
+                    location: {
+                        en: 'area',
+                        ru: 'район'
+                    }
                 }
         }
         case ADD_TYPE: {
@@ -78,6 +96,12 @@ export function globalReducer (state = initialState, action) {
             return {
                 ...state,
                 types: state.types.filter(el => el !== action.payload)
+            }
+        }
+        case SET_SELECTED_TYPE: {
+            return {
+                ...state,
+                selectedType: action.payload
             }
         }
         default:

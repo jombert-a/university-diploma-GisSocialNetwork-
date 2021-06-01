@@ -18,14 +18,13 @@ import {Link} from "react-router-dom";
 
 const GMap = (props) => {
     const [center, setCenter] = React.useState([54.7230799, 55.9213715]);
-    const zoom = 13;
+    const [zoom, setZoom] = React.useState(13);
     const [map, setMap] = React.useState();
     const types = useSelector(state => state.global.types);
     const dispatch = useDispatch();
 
-    function apiCallsByTypes(types) {
-        console.log('api calls');
-        if (zoom <= 15) {
+    function apiCallsByTypes() {
+        if (zoom >= 10) {
             const corners = map.getBounds();
             const cUL = corners.getNorthEast();
             const cLR = corners.getSouthWest();
@@ -46,12 +45,11 @@ const GMap = (props) => {
         }
     }
 
-    useEffect(() => {
+    useEffect(function () {
         if (types && map) {
-            apiCallsByTypes(types)
+            apiCallsByTypes()
         }
-    }, [types])
-
+    }, [types, center])
 
     useEffect(() => {
         if (!map) return;
@@ -69,13 +67,13 @@ const GMap = (props) => {
                  .then ( response => {
                      dispatch({type: SET_CITY, payload: response})
                  })
-            // получаем объекты по левой верхней и правой нижне координатам
-            apiCallsByTypes(types)
+            // изменяем центр, чтобы вызвать ререндер и вызвать api calls
+            setCenter([coords.lng, coords.lat])
         })
-        // map.on('click', function () {
-        //     console.log('clicked');
-        // })
-    });
+        map.on('click', function () {
+            console.log('clicked');
+        })
+    }, [map]);
 
     return (
         <div>

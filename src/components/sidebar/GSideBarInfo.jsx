@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react'
-import '../../style/layout/GSideBarInfo.css'
+import '../../style/sidebar/GSideBarInfo.css'
 import {apiObjects, apiPhoto, apiReviews} from "../../api";
 import {GSwiper} from "../common/swiper";
 
 const GSideBarInfo = (props) => {
-    console.log('init');
     const [data, setData] = React.useState();
     const [photoArray, setPhotoArray] = React.useState([]);
     const [reviews, setReviews] = React.useState();
@@ -31,8 +30,6 @@ const GSideBarInfo = (props) => {
 
     function handleSubmit(e) {
         e.preventDefault();
-
-        console.log(newReview);
         setNewReview('');
     }
 
