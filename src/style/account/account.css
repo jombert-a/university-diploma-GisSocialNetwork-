@@ -1,0 +1,129 @@
+.g-account {
+    display: flex;
+    width: 1000px;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.g-account__inner {
+    display: flex;
+    flex: 1 0 auto;
+    background: #ede6db;
+    padding: 16px;
+}
+
+.g-account-nav {
+    display: flex;
+    flex-direction: column;
+    background-color: #0F4C81;
+    padding: 16px;
+}
+
+.g-account-nav a {
+    color: #ede6db;
+    text-decoration: none;
+    margin-bottom: 8px;
+}
+
+.g-account-nav a:hover {
+    color: #fff;
+}
+
+.g-account-page header {
+    display: flex;
+}
+
+.g-account-page__photo {
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.g-account-page__photo img {
+    border-radius: 24px;
+}
+
+.g-account-page__info {
+    display: flex;
+    margin-top: 8px;
+}
+
+.g-account-page__info div {
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+}
+
+.g-account-page__edit {
+    margin-top: 8px;
+}
+
+.g-account-page__prop {
+    margin-bottom: 8px;
+}
+
+.g-account-friends__ul {
+    padding-left: 0;
+}
+
+.g-account-friends__li {
+    list-style: none;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.g-account-friends__li button {
+    margin-right: 8px;
+}
+
+.g-account-messages__ul {
+    padding-left: 0;
+}
+
+.g-account-messages__li {
+    list-style: none;
+    margin-bottom: 8px;
+    margin-right: 32px;
+}
+
+.g-account-messages__li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.g-account-messages__chat {
+    width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.g-account-messages__body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.g-account-messages__el {
+    display: flex;
+}
+
+.g-account-messages__el--end {
+    justify-content: flex-end;
+}
+
+.g-account-messages__input {
+    position: absolute;
+    bottom: 8px;
+    width: 568px;
+    display: flex;
+}
+
+.g-account-messages__input textarea {
+    flex-grow: 1;
+}

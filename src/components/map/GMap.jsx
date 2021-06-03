@@ -53,6 +53,17 @@ const GMap = (props) => {
 
     useEffect(() => {
         if (!map) return;
+        // отрисовываем первый раз урл
+        let coords = {
+            lng: map.getCenter().lng,
+            lat: map.getCenter().lat
+        };
+        dispatch({type: SET_COORDS, payload: coords})
+        apiLocation.getCityByCoords(coords)
+            .then ( response => {
+                dispatch({type: SET_CITY, payload: response})
+            });
+        // ивент на совершенное движене по карте (важно, чтобы эффект срабатывал тоько один раз, иначе будет создаваться нвоый обработчик)
         map.on('moveend', function () {
             // координаты середины экрана
             let coords = {
