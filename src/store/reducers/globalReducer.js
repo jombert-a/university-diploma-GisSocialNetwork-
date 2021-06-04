@@ -4,6 +4,7 @@ export const ADD_TYPE = "ADD_TYPE"
 export const DELETE_TYPE = "DELETE_TYPE"
 export const GET_CITY = "GET_CITY"
 export const SET_SELECTED_TYPE = "SET_SELECTED_TYPE"
+export const FLY_TO = "FLY_TO"
 
 const initialState = {
     location: {
@@ -13,7 +14,9 @@ const initialState = {
     lngCenter: null,
     latCenter: null,
     types: [],
-    selectedType: ''
+    selectedType: '',
+    flyTo: {lng: null, lat: null},
+    classifierMarkers: []
 }
 
 /* SET */
@@ -102,6 +105,15 @@ export function globalReducer (state = initialState, action) {
             return {
                 ...state,
                 selectedType: action.payload
+            }
+        }
+        case FLY_TO: {
+            return {
+                ...state,
+                flyTo: {
+                    lng: action.payload.lng,
+                    lat: action.payload.lat
+                }
             }
         }
         default:

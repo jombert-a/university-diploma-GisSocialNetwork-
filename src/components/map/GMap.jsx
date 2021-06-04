@@ -21,6 +21,7 @@ const GMap = (props) => {
     const [zoom, setZoom] = React.useState(13);
     const [map, setMap] = React.useState();
     const types = useSelector(state => state.global.types);
+    const flyTo = useSelector(state => state.global.flyTo);
     const dispatch = useDispatch();
 
     function apiCallsByTypes() {
@@ -50,6 +51,12 @@ const GMap = (props) => {
             apiCallsByTypes()
         }
     }, [types, center])
+
+    useEffect(() => {
+        if (map && flyTo.lng && flyTo.lat) {
+            map.flyTo([flyTo.lng, flyTo.lat], 17);
+        }
+    }, [flyTo.lng, flyTo.lat]);
 
     useEffect(() => {
         if (!map) return;
@@ -92,7 +99,7 @@ const GMap = (props) => {
                 center={center}
                 zoom={zoom}
                 className={'g-map'}
-                scrollWheelZoom={false}
+                scrollWheelZoom={true}
                 whenCreated={setMap}>
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

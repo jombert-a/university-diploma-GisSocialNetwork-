@@ -4,10 +4,10 @@ import Icons from "../common/icons";
 import GSearch from "../search/GSearch";
 import {useDispatch, useSelector} from "react-redux";
 import {GSwiper} from "../common/swiper";
-import {ADD_TYPE, DELETE_TYPE, SET_SELECTED_TYPE} from "../../store/reducers/globalReducer";
+import {ADD_TYPE, DELETE_TYPE, FLY_TO, SET_SELECTED_TYPE} from "../../store/reducers/globalReducer";
 import GSideBarInfoController from "./GSideBarInfoController";
 import {apiClassifier, apiEvents} from "../../api";
-
+import {SET_SELECTED_EVENT} from "../../store/reducers/eventsReducer";
 
 const GSideBar = (props) => {
     const [hidden, setHidden] = React.useState(false);
@@ -42,11 +42,23 @@ const GSideBar = (props) => {
     }, [newSelectedType]);
 
     useEffect(() => {
-        if (events)
+        if (events) {
+            let array = [];
             events.forEach(el => {
-                const event = <div className={`g-side-bar__interesting`}>{el.title}</div>
-                setEventsDOM([...eventsDOM, event])
+                const event =
+                    <div className={`g-side-bar__interesting`}
+                         onClick={() => {
+                             dispatch({type:SET_SELECTED_EVENT, payload: el});
+                             dispatch({type:SET_SELECTED_TYPE, payload: 'event'});
+                             dispatch({type: FLY_TO, payload: {lat: el.way.coordinates[0], lng: el.way.coordinates[1]}});
+                         }
+                    }>
+                        {el.title}
+                    </div>
+                array.push(event);
             })
+            setEventsDOM(array);
+        }
         //eslint-disable-next-line
     }, [events]);
 
@@ -64,11 +76,6 @@ const GSideBar = (props) => {
         }
         setCategoriesDOM(array);
     }, [categories])
-
-    useEffect(() => {
-        console.log(categoriesDOM)
-    }, [categoriesDOM])
-
     function typesHandler(type) {
         if (types.includes(type)) {
             deleteTypeHandler(type)
@@ -77,7 +84,6 @@ const GSideBar = (props) => {
             addTypeHandler(type);
         }
     }
-
     function deleteTypeHandler(type) {
         dispatch({type: DELETE_TYPE, payload: type});
         dispatch({type: `SET_${type.toUpperCase()}`, payload: []});
@@ -126,7 +132,10 @@ const GSideBar = (props) => {
             {
                 selectedType &&
                 <div className={`g-side-bar__hide-btn`}
-                     onClick={() => dispatch({type: SET_SELECTED_TYPE, payload: null})}>
+                     onClick={() => {
+                         dispatch({type: SET_SELECTED_TYPE, payload: null})
+                         dispatch({type: FLY_TO, payload: {lng: null, lat: null}})
+                     }}>
                     <Icons
                         name='close'
                         color='#000'
