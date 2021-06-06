@@ -6,7 +6,7 @@ import { MapContainer, TileLayer} from 'react-leaflet';
 import '../../style/map/GMapLeafet.css';
 import 'leaflet/dist/leaflet.css';
 
-import {apiEvents, apiLocation, apiObjects} from "../../api";
+import {apiAccount, apiEvents, apiLocation, apiObjects} from "../../api";
 
 import {SET_CITY, SET_COORDS, setCity, setCoords} from "../../store/reducers/globalReducer";
 import {SET_OBJECTS, setObjects} from "../../store/reducers/mapObjectsReducer";
@@ -15,6 +15,7 @@ import {SET_EVENTS, setEvents} from "../../store/reducers/eventsReducer";
 import GMapMarkers from "./GMapMarkers";
 
 import {Link} from "react-router-dom";
+import {SET_TOKEN} from "../../store/reducers/authReducer";
 
 const GMap = (props) => {
     const [center, setCenter] = React.useState([54.7230799, 55.9213715]);
@@ -60,6 +61,11 @@ const GMap = (props) => {
 
     useEffect(() => {
         if (!map) return;
+        apiAccount.authenticate('test1', 'test1')
+            .then(result => {
+                dispatch({type: SET_TOKEN, payload: result.accessToken});
+                sessionStorage.setItem('token', result.accessToken);
+            })
         // отрисовываем первый раз урл
         let coords = {
             lng: map.getCenter().lng,
