@@ -1,9 +1,11 @@
 import React from 'react'
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import {apiChatRooms} from "../../api";
 
 const GAccountFriends = props => {
     const friendsList = useSelector(state => state.account.friends);
+    const chatList = useSelector(state => state.account.chats)
     const friendsRequests = useSelector(state => state.account.friendRequests);
     const [friendsListDOM, setFriendsListDOM] = React.useState([]);
 
@@ -15,20 +17,28 @@ const GAccountFriends = props => {
         }, [friendsRequests.length]
     )
 
+    function writeMessage(id, name) {
+        let flag = false;
+        chatList.forEach(el => {
+            el.chatUsers.forEach(elem => {
+                if (id === elem.userId) {
+                    flag = true;
+                }
+            })
+        })
+        if (!flag) {
+            apiChatRooms.createPersonalChat({name, id})
+                .then ( result => console.log(result) );
+        }
+    }
 
     React.useEffect(() => {
         let buff = [];
-        console.log('list')
         friendsList.forEach((el) => {
             const element =
-                <li key={el.id} className={"g-account-friends__li"}>
-                    {el.name}
-                    {/*<div>*/}
-                    {/*    <Link to={`/account/messages/${el.id}`}>*/}
-                    {/*        <button>Написать</button>*/}
-                    {/*    </Link>*/}
-                    {/*    <button onClick={() => dispatch({type: SET_FRIENDS, payload: friendsList.filter(i => i.id !== el.id)})}>Удалить из друзей</button>*/}
-                    {/*</div>*/}
+                <li key={el.idUser} className={"g-account-friends__li"}>
+                    {el.username}
+                    <button className={'button'} onClick={() => writeMessage(el.idUser, el.username)}>Написать</button>
                 </li>
             buff.push(element)
         })

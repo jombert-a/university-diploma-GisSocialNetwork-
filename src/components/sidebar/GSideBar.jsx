@@ -41,11 +41,6 @@ const GSideBar = (props) => {
         if (newSelectedType) setHidden(false);
     }, [newSelectedType]);
 
-    function testHandler() {
-        apiObjects.postObjectTest(token)
-            .then(result => console.log(result));
-    }
-
     function typesHandler(type) {
         if (types.includes(type)) {
             deleteTypeHandler(type)
@@ -67,7 +62,6 @@ const GSideBar = (props) => {
     return (
         <div className={`g-side-bar`}>
             <div className={`g-side-bar__inner ${hidden ? 'g-side-bar__inner--hidden' : ''}`}>
-                <button onClick={() => testHandler()}> test </button>
                 {selectedType && <GSideBarInfoController type={selectedType} />}
                 <div className={`g-side-bar__header`}>
                     <GSearch />

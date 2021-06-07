@@ -6,14 +6,20 @@ import '../../style/account/account.css'
 import GAccountFriends from "./GAccountFriends";
 import GAccountMessages from "./GAccountMessages";
 import GAccountUsers from "./GAccountUsers";
-import {apiFriendship} from "../../api";
-import {SET_FRIEND_REQUESTS, SET_FRIENDS} from "../../store/reducers/accountReducer";
+import {apiChatRooms, apiFriendship} from "../../api";
+import {SET_CHATS, SET_FRIEND_REQUESTS, SET_FRIENDS} from "../../store/reducers/accountReducer";
 import {useDispatch, useSelector} from "react-redux";
 import GAccountRequests from "./GAccountRequests";
+
+import { HubConnectionBuilder } from '@microsoft/signalr';
 
 const GAccount = (props) => {
     const dispatch = useDispatch();
     const userId = useSelector(state => state.auth.userId);
+    const [ connection, setConnection ] = React.useState(null);
+
+    /* for connection */
+    const newMessage = useSelector(state => state.account.newMessage);
 
     React.useEffect(
         () => {
@@ -24,21 +30,47 @@ const GAccount = (props) => {
                     })
                 apiFriendship.getFriendRequests(userId)
                     .then(result => {
-                        console.log(result)
                         dispatch({type: SET_FRIEND_REQUESTS, payload: result})
                     })
+                apiChatRooms.getUserChatRooms()
+                    .then( result => {
+                        dispatch({type: SET_CHATS, payload: result});
+                    } );
                 setInterval(
                     () => {
                         apiFriendship.getFriendRequests(userId)
                             .then(result => {
-                                console.log(result)
                                 dispatch({type: SET_FRIEND_REQUESTS, payload: result})
                             })
                     }, 30000
                 )
+                const token = sessionStorage.getItem('token');
+                const hubConnection = new HubConnectionBuilder()
+                    .withUrl("http://139.162.168.53:8989/chat", { accessTokenFactory: () => token })
+                    .build();
+                setConnection(hubConnection);
             }
         }, [userId]
     )
+
+    React.useEffect(
+        () => {
+            if (connection) {
+                connection.start()
+                    .then(result => {
+                        console.log('Connected!');
+                    })
+            }
+        }, [connection]
+    );
+
+    React.useEffect(
+        () => {
+            if (newMessage !== null && connection)
+                connection.invoke("Send", newMessage.message, newMessage.userName, newMessage.chatId);
+        }, [newMessage]
+    )
+
     return (
         <div className="g-account">
             <GAccountNav />

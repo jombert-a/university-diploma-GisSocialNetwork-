@@ -43,12 +43,11 @@ export const apiFriendship = {
         })
             .then ( response => response.data );
     },
-    addFriend (el) {
+    editFriendship (payload) {
         const token = sessionStorage.getItem('token');
-        return instance.put(`Friendship/${el.idFriendShip}`,
+        return instance.put(`Friendship/${payload.id}/${payload.status}`,
             {
-            ...el,
-            status: 2
+
             },
             {
                 headers: {
@@ -156,6 +155,13 @@ export const apiClassifier = {
     }
 }
 
+export const apiMessages = {
+    getMessages (id) {
+        return instance.get(`Messages/GetMessages/${id}`)
+            .then (response => response.data)
+    }
+}
+
 export const apiChatRooms = {
     getUserChatRooms () {
         const token = sessionStorage.getItem('token');
@@ -165,5 +171,20 @@ export const apiChatRooms = {
             }
         })
             .then ( response => response.data );
+    },
+    createPersonalChat (payload) {
+        const token = sessionStorage.getItem('token');
+        return instance.post(`ChatRooms/CreatePersonalChat`,
+            {
+                chatName: payload.name,
+                receiver: payload.id
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+            .then ( result => result.data );
     }
 }
