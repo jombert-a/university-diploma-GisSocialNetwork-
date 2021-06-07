@@ -59,7 +59,11 @@ const GAccount = (props) => {
                 connection.start()
                     .then(result => {
                         console.log('Connected!');
+                        connection.on('Receive', message => {
+                            console.log(message);
+                        });
                     })
+                    .catch(e => console.log('Connection failed: ', e));
             }
         }, [connection]
     );

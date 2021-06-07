@@ -46,10 +46,10 @@ const GAccountChat = props => {
         <div>
             <div className={"g-account-messages__chat"}>
                 {messagesDOM}
-                <div className={"g-account-messages__input"}>
-                    <textarea value={newMessage} onChange={(e) => setNewMessage(e.target.value)}/>
-                    <button onClick={() => newMessageHandler(messages)}>Отправить</button>
-                </div>
+            </div>
+            <div className={"g-account-messages__input"}>
+                <textarea value={newMessage} onChange={(e) => setNewMessage(e.target.value)}/>
+                <button onClick={() => newMessageHandler(messages)}>Отправить</button>
             </div>
         </div>
     )
