@@ -23,6 +23,19 @@
     color: #ede6db;
     text-decoration: none;
     margin-bottom: 8px;
+    position: relative;
+}
+
+.g-account-nav__friend-requests {
+    position: absolute;
+    top: -4px;
+    background: red;
+    width: 16px;
+    height: 16px;
+    display: block;
+    right: 8px;
+    text-align: center;
+    border-radius: 50%;
 }
 
 .g-account-nav a:hover {
@@ -126,4 +139,41 @@
 
 .g-account-messages__input textarea {
     flex-grow: 1;
+}
+
+.g-account-users {
+    width: 100%;
+    padding: 16px;
+}
+
+.g-account-users__list {
+    padding-left: 0;
+}
+
+.g-account-users__elem {
+    list-style: none;
+    margin-bottom: 16px;
+}
+
+.g-account-users__elem-body {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    margin-bottom:8px;
+}
+
+.g-account-requests {
+    width: 100%;
+    height: 100%;
+}
+
+.g-account-requests__list {
+    padding-left: 0;
+}
+
+.g-account-requests__elem {
+    align-items: center;
+    list-style: none;
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
 }

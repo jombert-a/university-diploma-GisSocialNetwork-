@@ -61,11 +61,10 @@ const GMap = (props) => {
 
     useEffect(() => {
         if (!map) return;
-        apiAccount.authenticate('test1', 'test1')
-            .then(result => {
-                dispatch({type: SET_TOKEN, payload: result.accessToken});
-                sessionStorage.setItem('token', result.accessToken);
-            })
+        // apiAccount.authenticate('test1', 'test1')
+        //     .then(result => {
+        //         sessionStorage.setItem('token', result.accessToken);
+        //     })
         // отрисовываем первый раз урл
         let coords = {
             lng: map.getCenter().lng,

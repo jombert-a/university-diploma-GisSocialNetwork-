@@ -2,6 +2,7 @@ import React from 'react'
 import img from '../../assets/temp/islands-200.jpg';
 
 const GAccountPage = props => {
+
     const [birthday, setBirthday] = React.useState('18 августа 1999 г.');
     const [city, setCity] = React.useState('Уфа');
     const [university, setUniversity] = React.useState('IT-институт УГНТУ');

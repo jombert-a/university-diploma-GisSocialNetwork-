@@ -1,0 +1,44 @@
+import React from 'react'
+import {useSelector} from "react-redux";
+import {apiFriendship} from "../../api";
+
+const GAccountRequests = props => {
+    const requests = useSelector(state => state.account.friendRequests);
+    const [requestsDOM, setRequestsDOM] = React.useState([]);
+
+    function acceptFriendship(el) {
+        apiFriendship.addFriend(el)
+            .then ( result => console.log(result) );
+    }
+
+    React.useMemo(
+        () => {
+            let array = [];
+            requests.forEach(
+                el => {
+                    const request =
+                        <li key={el.idUser} className={'g-account-requests__elem'}>
+                            <div>
+                                <p>{el.username}</p>
+                                <p>{el.createdTime.split('T')[0]}</p>
+                            </div>
+                            <button className={'button'} onClick={() => acceptFriendship(el)}>Принять</button>
+                            <button className={'button'}>Отклонить</button>
+                        </li>
+                    array.push(request);
+                }
+            );
+            setRequestsDOM(array);
+        }, [requests]
+    )
+
+    return (
+        <div className={'g-account-requests'}>
+            <ul className={'g-account-requests__list'}>
+                {requestsDOM}
+            </ul>
+        </div>
+    )
+}
+
+export default GAccountRequests;

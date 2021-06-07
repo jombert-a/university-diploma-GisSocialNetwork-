@@ -1,0 +1,19 @@
+.g-registration {
+    height: 100%;
+    display: flex;
+}
+
+.g-registration-form {
+    margin: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.g-registration-form__label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}

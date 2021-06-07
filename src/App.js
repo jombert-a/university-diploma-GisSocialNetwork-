@@ -3,7 +3,7 @@ import GMain from "./components/layout/GMain";
 import {BrowserRouter} from "react-router-dom";
 import { Provider } from 'react-redux'
 import store from "./store";
-
+import './style/uikit/style.css';
 
 function App() {
   return (

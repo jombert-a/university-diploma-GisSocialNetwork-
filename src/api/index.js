@@ -1,5 +1,4 @@
 import * as axios from 'axios'
-import {useSelector} from "react-redux";
 
 const instance = axios.create({
     baseURL: 'http://139.162.168.53:8989/api/',
@@ -12,6 +11,51 @@ export const apiAccount = {
             password: password,
         })
             .then( response => response.data)
+    },
+    register (payload) {
+        return instance.post('Account/Register', {
+            username: payload.username,
+            email: payload.email,
+            fullname: payload.fullname,
+            birthDate: payload.birthday,
+            password: payload.password
+        })
+            .then ( response => response );
+    },
+    getUsers () {
+        return instance.get('Account/GetUsers')
+            .then ( response => response.data )
+    }
+}
+
+export const apiFriendship = {
+    getFriends (userId) {
+        return instance.get(`Friendship/GetFriends/${userId}`)
+            .then ( response => response.data );
+    },
+    getFriendRequests () {
+        const token = sessionStorage.getItem('token');
+
+        return instance.get(`Friendship/GetFriendRequests`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then ( response => response.data );
+    },
+    addFriend (el) {
+        const token = sessionStorage.getItem('token');
+        return instance.put(`Friendship/${el.idFriendShip}`,
+            {
+            ...el,
+            status: 2
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then ( response => response.data )
     }
 }
 
@@ -109,5 +153,17 @@ export const apiClassifier = {
     getCategoryClassifiers () {
         return instance.get(`CategoryClassifiers`)
             .then( response => response.data );
+    }
+}
+
+export const apiChatRooms = {
+    getUserChatRooms () {
+        const token = sessionStorage.getItem('token');
+        return instance.get('ChatRooms/GetUserChatRooms', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then ( response => response.data );
     }
 }

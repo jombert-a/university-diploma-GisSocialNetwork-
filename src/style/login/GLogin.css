@@ -1,0 +1,23 @@
+.g-login {
+    height: 100%;
+    display: flex;
+}
+
+.g-login-form {
+    margin: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.g-login-form__label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.g-login-form__reg {
+    margin-top: 16px;
+}
