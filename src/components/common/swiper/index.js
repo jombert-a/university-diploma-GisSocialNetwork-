@@ -12,8 +12,8 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 export const GSwiper = (props) => {
     return (
         <Swiper
-            spaceBetween={50}
-            slidesPerView={3}
+            spaceBetween={24}
+            slidesPerView={1.5}
         >
             {props.array.map( (el, index) =>  <SwiperSlide key={index}>{el}</SwiperSlide>)}
         </Swiper>

@@ -7,3 +7,46 @@
 .text--center {
     text-align: center;
 }
+
+.text--white {
+    color: #fff;
+}
+
+h1, h2, h3, h4, h5 {
+    margin-top: 4px;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 72px;
+    line-height: 86px;
+    margin-bottom: 24px;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 76px;
+    margin-bottom: 16px;
+}
+
+h3 {
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 68px;
+    margin-bottom: 8px;
+}
+
+h4 {
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 44px;
+    margin-bottom: 4px;
+}
+
+h5 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 0;
+}

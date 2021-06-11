@@ -8,13 +8,13 @@
 
 .g-side-bar__header {
     padding: 16px;
-    background-color: #E5E5E5;
+    background-color: #14A38B;
 }
 
 .g-side-bar__inner {
     height: 100%;
     width: 100%;
-    background-color: #fff;
+    background-color: #DBE2EA;
     transition: 0.3s ease-in-out;
     overflow: hidden;
     position: absolute;
@@ -41,22 +41,23 @@
 
 .g-side-bar__nav-link {
     list-style: none;
+    cursor: pointer;
+    display: flex;
 }
-
 .g-side-bar__nav-link.active {
-    color: red;
+    color: #0880AE;
 }
 
 .g-side-bar__hide-btn {
     position: absolute;
-    padding: 4px;
     background: #fff;
     left: 400px;
+    padding: 25px 4px;
     transition:  0.3s ease-in-out;
 }
 
 .g-side-bar__hide-btn--down {
-    top: 60px;
+    top: 100px;
 }
 
 .g-side-bar__hide-btn--active {
@@ -73,10 +74,12 @@
 }
 
 .g-side-bar__interesting {
-    height: 100px;
-    background-color: #84cdca;
-    border-radius: 16px;
+    background: #FFFFFF;
+    box-shadow: 0px 12px 24px rgba(44, 39, 56, 0.02), 0px 24px 48px rgba(44, 39, 56, 0.04);
+    border-radius: 24px;
     padding: 16px;
+    min-height: 240px;
+    min-width: 200px;
 }
 
 .g-side-bar__categories {
@@ -99,7 +102,7 @@
     border-radius: 100%;
     height: 32px;
     width: 32px;
-    background-color: #E5E5E5;
+    background-color: #fff;
 }
 
 .g-side-bar__magic {
