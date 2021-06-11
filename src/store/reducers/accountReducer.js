@@ -1,11 +1,17 @@
 export const SET_USERS = "SET_USERS"
 export const SET_FRIENDS = "SET_FRIENDS"
 export const SET_FRIEND_REQUESTS = "SET_FRIEND_REQUESTS"
+export const SET_CHATS = "SET_CHATS"
+export const SET_NEW_MESSAGE = "SET_NEW_MESSAGE"
+export const SET_MESSAGES = "SET_MESSAGES"
 
 const initialState = {
     users: [],
     friends: [],
-    friendRequests: []
+    friendRequests: [],
+    chats: [],
+    messages: [],
+    newMessage: {}
 }
 
 export function accountReducer (state = initialState, action) {
@@ -19,6 +25,24 @@ export function accountReducer (state = initialState, action) {
             return {
                 ...state,
                 friendRequests: action.payload
+            }
+        }
+        case SET_CHATS: {
+            return {
+                ...state,
+                chats: action.payload
+            }
+        }
+        case SET_NEW_MESSAGE: {
+            return {
+                ...state,
+                newMessage: action.payload
+            }
+        }
+        case SET_MESSAGES: {
+            return {
+                ...state,
+                messages: [...(state.messages.filter(el=>el.chatId!==action.payload.id)), ...action.payload.messages]
             }
         }
         default:

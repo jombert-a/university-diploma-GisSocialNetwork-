@@ -88,6 +88,7 @@ const GMap = (props) => {
             // так делать нельзя, но это быстрее, чем вводить санки или сагу
             apiLocation.getCityByCoords(coords)
                  .then ( response => {
+                     console.log('coords');
                      dispatch({type: SET_CITY, payload: response})
                  })
             // изменяем центр, чтобы вызвать ререндер и вызвать api calls
