@@ -1,6 +1,7 @@
 import React from 'react'
-import {apiAccount, apiFriendship} from "../../api";
-import {useDispatch, useSelector} from "react-redux";
+import {apiAccount} from "../../api/Account";
+import {apiFriendship} from "../../api/Friendship";
+import {useSelector} from "react-redux";
 
 const GAccountUsers = props => {
     const userId = useSelector(state => state.auth.userId);

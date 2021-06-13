@@ -1,5 +1,6 @@
 import React from 'react'
-import {apiEvents, apiObjects} from "../../../api";
+import {apiEvents} from "../../../api/Events";
+import {apiObjects} from "../../../api/Objects";
 import {SET_OBJECTS} from "../../../store/reducers/mapObjectsReducer";
 import {useDispatch} from "react-redux";
 import {SET_EVENTS} from "../../../store/reducers/eventsReducer";
@@ -21,7 +22,6 @@ const GSideBarCategories = props => {
                 break;
             }
         }
-        console.log(el);
     }
 
     React.useEffect(() => {

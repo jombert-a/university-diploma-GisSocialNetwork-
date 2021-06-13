@@ -1,27 +1,28 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import { MapContainer, TileLayer} from 'react-leaflet';
 import '../../style/map/GMapLeafet.css';
 import 'leaflet/dist/leaflet.css';
 
-import {apiAccount, apiEvents, apiLocation, apiObjects} from "../../api";
+import {apiEvents} from "../../api/Events";
+import {apiLocation} from "../../api/Location";
+import {apiObjects} from "../../api/Objects";
 
-import {SET_CITY, SET_COORDS, setCity, setCoords} from "../../store/reducers/globalReducer";
-import {SET_OBJECTS, setObjects} from "../../store/reducers/mapObjectsReducer";
-import {SET_EVENTS, setEvents} from "../../store/reducers/eventsReducer";
+import {SET_CITY, SET_COORDS, SET_SIDEBAR_TYPE} from "../../store/reducers/globalReducer";
+import {SET_OBJECTS} from "../../store/reducers/mapObjectsReducer";
+import {SET_EVENTS} from "../../store/reducers/eventsReducer";
 
 import GMapMarkers from "./GMapMarkers";
 
 import {Link} from "react-router-dom";
-import {SET_TOKEN} from "../../store/reducers/authReducer";
 
 const GMap = (props) => {
     const [center, setCenter] = React.useState([54.7230799, 55.9213715]);
     const [zoom, setZoom] = React.useState(13);
     const [map, setMap] = React.useState();
-    const types = useSelector(state => state.global.types);
+    const types = useSelector(state => state.global.entityTypes);
     const flyTo = useSelector(state => state.global.flyTo);
     const dispatch = useDispatch();
 
@@ -47,24 +48,20 @@ const GMap = (props) => {
         }
     }
 
-    useEffect(function () {
+    React.useEffect(function () {
         if (types && map) {
             apiCallsByTypes()
         }
     }, [types, center])
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (map && flyTo.lng && flyTo.lat) {
             map.flyTo([flyTo.lng, flyTo.lat], 17);
         }
     }, [flyTo.lng, flyTo.lat]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (!map) return;
-        // apiAccount.authenticate('test1', 'test1')
-        //     .then(result => {
-        //         sessionStorage.setItem('token', result.accessToken);
-        //     })
         // отрисовываем первый раз урл
         let coords = {
             lng: map.getCenter().lng,
@@ -114,11 +111,9 @@ const GMap = (props) => {
                 <GMapMarkers />
             </MapContainer>
             <Link to="/account" className={'g-map__account-link'} />
+            <button className={'g-map__new-entity'} onClick={() => dispatch({type: SET_SIDEBAR_TYPE, payload:'new-entity'})}/>
         </div>
     )
 };
 
-export default connect(
-    null,
-    { setCoords, setCity, setObjects, setEvents }
-) (GMap);
+export default GMap;

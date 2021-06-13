@@ -3,7 +3,7 @@ import DatePicker, {registerLocale} from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../style/login/GRegistration.css'
 import ru from 'date-fns/locale/ru';
-import {apiAccount} from "../../api";
+import {apiAccount} from "../../api/Account";
 registerLocale('ru', ru)
 
 const GRegistration = props => {

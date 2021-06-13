@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 
-import {apiObjects, apiPhoto, apiReviews} from "../../api";
+import {apiObjects} from "../../api/Objects";
+import {apiPhoto} from "../../api/Photo";
 
 import {GSwiper} from "../common/swiper";
 import GReview from "../common/review/GReview";

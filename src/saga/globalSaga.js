@@ -1,6 +1,6 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import { GET_CITY, setCity } from '../store/reducers/globalReducer';
-import {apiLocation} from "../api";
+import {apiLocation} from "../api/Location";
 
 
 function* fetchCityWorker() {

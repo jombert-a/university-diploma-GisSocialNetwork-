@@ -1,6 +1,6 @@
 import React from 'react'
 import {useSelector} from "react-redux";
-import {apiFriendship} from "../../api";
+import {apiFriendship} from "../../api/Friendship";
 
 const GAccountRequests = props => {
     const requests = useSelector(state => state.account.friendRequests);

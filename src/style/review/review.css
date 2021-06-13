@@ -8,3 +8,8 @@
     min-height: 80px;
     border-radius: 8px;
 }
+
+.g-review__controller {
+    display: flex;
+    justify-content: space-between;
+}

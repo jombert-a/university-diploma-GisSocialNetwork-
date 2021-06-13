@@ -1,7 +1,7 @@
 import React from 'react'
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import {apiChatRooms} from "../../api";
+import {apiChatRooms} from "../../api/ChatRooms";
 
 const GAccountFriends = props => {
     const friendsList = useSelector(state => state.account.friends);

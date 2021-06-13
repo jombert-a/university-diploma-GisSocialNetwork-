@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../style/login/GLogin.css'
-import {apiAccount} from "../../api";
+import {apiAccount} from "../../api/Account";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_AUTH, SET_EMAIL, SET_ID, SET_USERNAME} from "../../store/reducers/authReducer";
 import {Link, Redirect} from "react-router-dom";

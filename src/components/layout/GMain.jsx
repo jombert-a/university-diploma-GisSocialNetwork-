@@ -3,10 +3,10 @@ import GMap from "../map/GMap";
 import {connect, useSelector} from "react-redux";
 import {Switch, Route, useHistory, Redirect} from "react-router-dom";
 import {getCoords, getLocation} from "../../store/reducers/globalReducer";
-import GSideBar from "../sidebar/GSideBar";
 import GAccount from "../account/GAccount";
 import GLogin from "../login/GLogin";
 import GRegistration from "../login/GRegistration";
+import GSideBarController from "../sidebar/GSideBarController";
 
 const GMain = (props) => {
     let history = useHistory();
@@ -33,7 +33,7 @@ const GMain = (props) => {
                 </Route>
                 <Route path={`/`}>
                     <GMap />
-                    <GSideBar/>
+                    <GSideBarController/>
                 </Route>
             </Switch>
         </main>

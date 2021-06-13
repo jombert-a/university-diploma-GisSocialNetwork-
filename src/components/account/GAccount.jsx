@@ -6,7 +6,8 @@ import '../../style/account/account.css'
 import GAccountFriends from "./GAccountFriends";
 import GAccountMessages from "./GAccountMessages";
 import GAccountUsers from "./GAccountUsers";
-import {apiChatRooms, apiFriendship} from "../../api";
+import {apiChatRooms} from "../../api/ChatRooms";
+import {apiFriendship} from "../../api/Friendship";
 import {SET_CHATS, SET_FRIEND_REQUESTS, SET_FRIENDS} from "../../store/reducers/accountReducer";
 import {useDispatch, useSelector} from "react-redux";
 import GAccountRequests from "./GAccountRequests";
@@ -16,10 +17,13 @@ import { HubConnectionBuilder } from '@microsoft/signalr';
 const GAccount = (props) => {
     const dispatch = useDispatch();
     const userId = useSelector(state => state.auth.userId);
+    const username = useSelector(state => state.auth.username);
+
     const [ connection, setConnection ] = React.useState(null);
 
     /* for connection */
     const newMessage = useSelector(state => state.account.newMessage);
+    console.log(connection)
 
     React.useEffect(
         () => {
@@ -48,6 +52,13 @@ const GAccount = (props) => {
                 const hubConnection = new HubConnectionBuilder()
                     .withUrl("http://139.162.168.53:8989/chat", { accessTokenFactory: () => token })
                     .build();
+                hubConnection.on('Receive', function (message, userName) {
+                    console.log(message);
+                });
+                hubConnection.on("Notify", function (message) {
+
+                    console.log(message);
+                });
                 setConnection(hubConnection);
             }
         }, [userId]
@@ -56,14 +67,15 @@ const GAccount = (props) => {
     React.useEffect(
         () => {
             if (connection) {
+                // connection.on('Receive', message => {
+                //     console.log(message);
+                // });
                 connection.start()
                     .then(result => {
                         console.log('Connected!');
-                        connection.on('Receive', message => {
-                            console.log(message);
-                        });
+                        connection.invoke('Enter', username);
                     })
-                    .catch(e => console.log('Connection failed: ', e));
+                //     .catch(e => console.log('Connection failed: ', e));
             }
         }, [connection]
     );

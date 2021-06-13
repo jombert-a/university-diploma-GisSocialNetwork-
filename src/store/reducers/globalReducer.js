@@ -4,6 +4,7 @@ export const ADD_TYPE = "ADD_TYPE"
 export const DELETE_TYPE = "DELETE_TYPE"
 export const GET_CITY = "GET_CITY"
 export const SET_SELECTED_TYPE = "SET_SELECTED_TYPE"
+export const SET_SIDEBAR_TYPE = "SET_SIDEBAR_TYPE"
 export const FLY_TO = "FLY_TO"
 
 const initialState = {
@@ -13,8 +14,9 @@ const initialState = {
     },
     lngCenter: null,
     latCenter: null,
-    types: [],
-    selectedType: '',
+    sideBarType: '',
+    entityTypes: [],
+    selectedEntityType: '',
     flyTo: {lng: null, lat: null},
     classifierMarkers: []
 }
@@ -42,11 +44,6 @@ export const deleteType = payload => ({
     payload
 })
 
-export const setSelectedType = payload => ({
-    type: SET_SELECTED_TYPE,
-    payload
-})
-
 /* GET */
 export const getCity = (payload) => {
     return {type: GET_CITY, payload}
@@ -63,6 +60,13 @@ export const getLocation = store => store.global.location
 
 export function globalReducer (state = initialState, action) {
     switch (action.type) {
+        case SET_SIDEBAR_TYPE: {
+            console.log(action.payload);
+            return {
+                ...state,
+                sideBarType: action.payload
+            }
+        }
         case SET_COORDS: {
             const {lng, lat} = action.payload;
             return {
@@ -92,19 +96,19 @@ export function globalReducer (state = initialState, action) {
         case ADD_TYPE: {
             return {
                 ...state,
-                types: [...state.types, action.payload]
+                entityTypes: [...state.entityTypes, action.payload]
             }
         }
         case DELETE_TYPE: {
             return {
                 ...state,
-                types: state.types.filter(el => el !== action.payload)
+                entityTypes: state.entityTypes.filter(el => el !== action.payload)
             }
         }
         case SET_SELECTED_TYPE: {
             return {
                 ...state,
-                selectedType: action.payload
+                selectedEntityType: action.payload
             }
         }
         case FLY_TO: {

@@ -1,30 +1,28 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import '../../style/sidebar/GSideBar.css';
 import Icons from "../common/icons";
 import GSearch from "../search/GSearch";
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_TYPE, DELETE_TYPE, FLY_TO, SET_SELECTED_TYPE} from "../../store/reducers/globalReducer";
+import {ADD_TYPE, DELETE_TYPE, SET_SELECTED_TYPE} from "../../store/reducers/globalReducer";
 import GSideBarInfoController from "./GSideBarInfoController";
-import {apiClassifier, apiEvents} from "../../api";
+import {apiClassifier} from "../../api/Classifier";
+import {apiEvents} from "../../api/Events";
 import GSideBarCategories from "./Modules/GSideBarCategories";
 import GSideBarInteresting from "./Modules/GSideBarInteresting";
 
 const GSideBar = (props) => {
     const [hidden, setHidden] = React.useState(false);
-    const [location, setLocation] = React.useState('район');
     const [selectedType, setSelectedType] = React.useState('');
     const [events, setEvents] = React.useState();
     const [categories, setCategories] = React.useState();
 
     const dispatch = useDispatch();
     const newLocation = useSelector(state => state.global.location);
-    const newSelectedType = useSelector(state => state.global.selectedType);
-    const types = useSelector(state => state.global.types);
+    const newSelectedType = useSelector(state => state.global.selectedEntityType);
+    const types = useSelector(state => state.global.entityTypes);
 
-    useEffect(() => {
-        setLocation(newLocation.ru);
+    React.useEffect(() => {
         if (newLocation.en !== 'area') {
-            console.log('api getEventsInCity');
             apiEvents.getEventsInCity(newLocation.ru)
                 .then( response => setEvents(response) )
             apiClassifier.getCategoryClassifiers()
@@ -35,7 +33,7 @@ const GSideBar = (props) => {
     const categoriesElem = React.useMemo(() => <GSideBarCategories categories={categories} />, [categories]);
     const eventsElem = React.useMemo(() => <GSideBarInteresting events={events} />, [events]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         setSelectedType(newSelectedType)
         if (newSelectedType) setHidden(false);
     }, [newSelectedType]);
@@ -60,27 +58,24 @@ const GSideBar = (props) => {
     }
 
     return (
-        <div className={`g-side-bar`}>
-            <div className={`g-side-bar__inner ${hidden ? 'g-side-bar__inner--hidden' : ''}`}>
-                {selectedType && <GSideBarInfoController type={selectedType} />}
-                <div className={`g-side-bar__header`}>
-                    <GSearch />
-                </div>
-                <div className={`g-side-bar__body`}>
-                    <h4> Навигация </h4>
-                    <ul className={`g-side-bar__nav`}>
-                        <li className={`g-side-bar__nav-link ${types.includes('events') ? 'active' : ''}`}
-                            onClick={(e) => typesHandler('events', e)}> Cобытия </li>
-                        <li className={`g-side-bar__nav-link ${types.includes('objects') ? 'active' : ''}`}
-                            onClick={() => typesHandler('objects')}> Объекты </li>
-                        <li className={`g-side-bar__nav-link`}> Места   </li>
-                        <li className={`g-side-bar__nav-link`}> Машруты </li>
-                    </ul>
-                    <h4> Интересное рядом </h4>
-                    {eventsElem}
-                    <h4> Категории </h4>
-                    {categoriesElem}
-                </div>
+        <>
+            <div className={`g-side-bar__header`}>
+                <GSearch />
+            </div>
+            <div className={`g-side-bar__body`}>
+                <h4> Навигация </h4>
+                <ul className={`g-side-bar__nav`}>
+                    <li className={`g-side-bar__nav-link ${types.includes('events') ? 'active' : ''}`}
+                        onClick={(e) => typesHandler('events', e)}> Cобытия </li>
+                    <li className={`g-side-bar__nav-link ${types.includes('objects') ? 'active' : ''}`}
+                        onClick={() => typesHandler('objects')}> Объекты </li>
+                    <li className={`g-side-bar__nav-link`}> Места   </li>
+                    <li className={`g-side-bar__nav-link`}> Машруты </li>
+                </ul>
+                <h4> Интересное рядом </h4>
+                {eventsElem}
+                <h4> Категории </h4>
+                {categoriesElem}
             </div>
             <div  className={`g-side-bar__hide-btn ${hidden ? 'g-side-bar__hide-btn--active' : ''} ${selectedType ? 'g-side-bar__hide-btn--down' : ''}`}
                   onClick={() => setHidden(!hidden)}>
@@ -91,12 +86,11 @@ const GSideBar = (props) => {
                 <div className={`g-side-bar__hide-btn`}
                      onClick={() => {
                          dispatch({type: SET_SELECTED_TYPE, payload: null})
-                         dispatch({type: FLY_TO, payload: {lng: null, lat: null}})
                      }}>
                     <Icons name='close' color='#000' size='32' className='' />
                 </div>
             }
-        </div>
+        </>
     )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {apiChatRooms} from "../../api";
+import {apiChatRooms} from "../../api/ChatRooms";
 import {SET_CHATS} from "../../store/reducers/accountReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useLocation} from "react-router-dom";

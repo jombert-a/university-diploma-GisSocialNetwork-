@@ -1,6 +1,5 @@
 import React from "react";
-import {apiEvents} from "../../api";
-
+import {apiEvents} from "../../api/Events";
 
 const GSideBarInfoEvent = (props) => {
     const [data, setData] = React.useState();

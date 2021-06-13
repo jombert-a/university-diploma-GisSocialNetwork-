@@ -1,5 +1,5 @@
 import React from 'react'
-import {apiMessages} from "../../api";
+import {apiMessages} from "../../api/Messages";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_MESSAGES, SET_NEW_MESSAGE} from "../../store/reducers/accountReducer";
 

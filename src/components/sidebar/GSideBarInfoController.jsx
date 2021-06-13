@@ -9,8 +9,9 @@ const GSideBarInfoController = (props) => {
     const [buffer, setBuffer] = React.useState(<div />);
     const objectInfo = useSelector(state => state.mapObjects.selectedObject);
     const eventInfo = useSelector(state => state.events.selectedEvent);
+    const selectedType = useSelector(state => state.global.selectedEntityType);
     React.useEffect(() => {
-        switch(props.type) {
+        switch(selectedType) {
             case 'object':
                 setBuffer(<GSideBarInfoObject object={objectInfo} />);
                 break;

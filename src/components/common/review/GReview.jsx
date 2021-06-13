@@ -1,5 +1,5 @@
 import React from 'react'
-import {apiReviews} from "../../../api";
+import {apiReviews} from "../../../api/Reviews";
 import {useSelector} from "react-redux";
 import '../../../style/review/review.css'
 
@@ -7,14 +7,24 @@ const Review = props => {
 
     function handleSubmit (e) {
         e.preventDefault();
+        if (newReview) {
+            apiReviews.postNewReview(props.typeId, props.id, +rating, newReview);
+            apiReviews.getReviewsByIds(props.typeId, props.id, page)
+                .then ( result => setReviews(result));
+            setRating(5);
+            setNewReview('');
+        }
     }
 
     const [newReview, setNewReview] = React.useState('');
     const [page, setPage] = React.useState(1);
     const [reviews, setReviews] = React.useState([]);
+    const [rating, setRating] = React.useState(5);
 
     const isAuth = useSelector(state => state.auth.isAuth);
-    console.log(isAuth);
+
+    console.log(reviews);
+
     React.useEffect(
         () => {
             apiReviews.getReviewsByIds(props.typeId, props.id, page)
@@ -31,7 +41,16 @@ const Review = props => {
                         <p>Оставить отзыв:</p>
                         <textarea value={newReview} onChange={(e) => setNewReview(e.target.value)}/>
                     </label>
-                    <button className={'button'}>Отправить</button>
+                    <div className={`g-review__controller`}>
+                        <select value={rating} onChange={(e) => setRating(e.target.value)}>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <button className={'button'}>Отправить</button>
+                    </div>
                 </form>
             }
             <p>Отзывы:</p>

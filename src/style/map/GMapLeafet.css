@@ -5,10 +5,32 @@
 .g-map__account-link {
     position: absolute;
     right: 50px;
-    bottom: 50px;
+    top: 50px;
     width: 60px;
     height: 60px;
     border-radius: 100%;
     background-color: #fff;
     z-index: 10000;
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("data:image/svg+xml,%3Csvg id='Gradient' height='512' viewBox='0 0 512 512' width='512' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3ClinearGradient id='linear-gradient' gradientUnits='userSpaceOnUse' x1='256' x2='256' y1='496' y2='16'%3E%3Cstop offset='0' stop-color='%2312c2e9'/%3E%3Cstop offset='.5' stop-color='%23c471ed'/%3E%3Cstop offset='1' stop-color='%23f64f59'/%3E%3C/linearGradient%3E%3Cpath d='m68.169 447.023c3.666 2 90.906 48.977 187.831 48.977 105.008 0 184.772-47.134 188.116-49.14a8 8 0 0 0 3.884-6.86c0-64.593-19.807-123.7-55.771-166.442-25.158-29.9-56.724-50.28-91.539-59.662a104 104 0 1 0 -89.38 0c-34.815 9.382-66.381 29.765-91.539 59.662-35.964 42.742-55.771 101.849-55.771 166.442a8 8 0 0 0 4.169 7.023zm99.831-327.023a88 88 0 1 1 88 88 88.1 88.1 0 0 1 -88-88zm-35.987 163.859c32.487-38.601 76.515-59.859 123.987-59.859s91.5 21.258 123.987 59.859c32.681 38.838 51.056 92.48 51.977 151.474-17.119 9.267-88.256 44.667-175.964 44.667-81.11 0-157.5-35.609-175.96-44.856.96-58.921 19.327-112.488 51.973-151.285z' fill='url(%23linear-gradient)'/%3E%3C/svg%3E");
+}
+
+.g-map__new-entity {
+    outline: none;
+    border: none;
+    position: absolute;
+    right: 50px;
+    top: 120px;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    background-color: #fff;
+    z-index: 10000;
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg height='512pt' viewBox='0 0 512 512' width='512pt' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='256' x2='256' y1='0' y2='512'%3E%3Cstop offset='0' stop-color='%232af598'/%3E%3Cstop offset='1' stop-color='%23009efd'/%3E%3C/linearGradient%3E%3Cpath d='m437.019531 74.980469c-48.351562-48.351563-112.640625-74.980469-181.019531-74.980469s-132.667969 26.628906-181.019531 74.980469c-48.351563 48.351562-74.980469 112.640625-74.980469 181.019531s26.628906 132.667969 74.980469 181.019531c48.351562 48.351563 112.640625 74.980469 181.019531 74.980469s132.667969-26.628906 181.019531-74.980469c48.351563-48.351562 74.980469-112.640625 74.980469-181.019531s-26.628906-132.667969-74.980469-181.019531zm-181.019531 397.019531c-119.101562 0-216-96.898438-216-216s96.898438-216 216-216 216 96.898438 216 216-96.898438 216-216 216zm20-236.019531h90v40h-90v90h-40v-90h-90v-40h90v-90h40zm0 0' fill='url(%23a)'/%3E%3C/svg%3E");
 }
