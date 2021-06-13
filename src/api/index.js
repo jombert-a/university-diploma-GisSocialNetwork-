@@ -121,9 +121,12 @@ export const apiPhoto = {
 }
 
 export const apiReviews = {
-    getReviewsByIds (typeId, entityId) {
-        return instance.get(`Reviews/GetReviewsForEntity/${typeId}/${entityId}`)
+    getReviewsByIds (typeId, entityId, page) {
+        return instance.get(`Reviews/GetReviewsForEntity/${typeId}/${entityId}?page=${page}`)
             .then(response => response.data)
+    },
+    postNewReview (typeId, entityId, userId, ratingValue, reviewText) {
+        return true;
     }
 }
 

@@ -1,0 +1,10 @@
+.g-review__new-review {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.g-review__new-review textarea {
+    min-height: 80px;
+    border-radius: 8px;
+}

@@ -49,26 +49,7 @@ const GSideBarInfoObject = props => {
                 )
             default:
                 return (
-                    <div>
-                        <GReview typeId={props.object.typeId} id={props.object.idEntity} />
-                        {/*<form onSubmit={handleSubmit}>*/}
-                        {/*    <label>*/}
-                        {/*        <p>Оставить отзыв:</p>*/}
-                        {/*        <textarea value={newReview} onChange={(e) => setNewReview(e.target.value)}/>*/}
-                        {/*    </label>*/}
-                        {/*    <button>Отправить</button>*/}
-                        {/*</form>*/}
-                        {/*<p>Отзывы:</p>*/}
-                        {/*{*/}
-                        {/*    reviews.map(el => (*/}
-                        {/*        <div className={'g-side-bar-info__review'}>*/}
-                        {/*            <span>Пользователь {el.userId}</span>*/}
-                        {/*            <p>{el.reviewText}</p>*/}
-                        {/*            <span>Оценка: {el.ratingValue}</span>*/}
-                        {/*        </div>*/}
-                        {/*    ))*/}
-                        {/*}*/}
-                    </div>
+                    <GReview typeId={props.object.typeId} id={props.object.idEntity} />
                 )
 
         }
