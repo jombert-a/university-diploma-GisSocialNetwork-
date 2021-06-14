@@ -6,6 +6,7 @@ export const GET_CITY = "GET_CITY"
 export const SET_SELECTED_TYPE = "SET_SELECTED_TYPE"
 export const SET_SIDEBAR_TYPE = "SET_SIDEBAR_TYPE"
 export const FLY_TO = "FLY_TO"
+export const SET_CLICKED_COORDINATES = "SET_CLICKED_COORDINATES"
 
 const initialState = {
     location: {
@@ -18,7 +19,11 @@ const initialState = {
     entityTypes: [],
     selectedEntityType: '',
     flyTo: {lng: null, lat: null},
-    classifierMarkers: []
+    classifierMarkers: [],
+    clickedCoordinates: {
+        lng: '',
+        lat: ''
+    }
 }
 
 /* SET */
@@ -115,6 +120,15 @@ export function globalReducer (state = initialState, action) {
             return {
                 ...state,
                 flyTo: {
+                    lng: action.payload.lng,
+                    lat: action.payload.lat
+                }
+            }
+        }
+        case SET_CLICKED_COORDINATES: {
+            return {
+                ...state,
+                clickedCoordinates: {
                     lng: action.payload.lng,
                     lat: action.payload.lat
                 }

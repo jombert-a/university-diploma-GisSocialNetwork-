@@ -10,7 +10,7 @@ import {apiEvents} from "../../api/Events";
 import {apiLocation} from "../../api/Location";
 import {apiObjects} from "../../api/Objects";
 
-import {SET_CITY, SET_COORDS, SET_SIDEBAR_TYPE} from "../../store/reducers/globalReducer";
+import {SET_CITY, SET_CLICKED_COORDINATES, SET_COORDS, SET_SIDEBAR_TYPE} from "../../store/reducers/globalReducer";
 import {SET_OBJECTS} from "../../store/reducers/mapObjectsReducer";
 import {SET_EVENTS} from "../../store/reducers/eventsReducer";
 
@@ -85,14 +85,15 @@ const GMap = (props) => {
             // так делать нельзя, но это быстрее, чем вводить санки или сагу
             apiLocation.getCityByCoords(coords)
                  .then ( response => {
-                     console.log('coords');
+                     console.log('apiLocation moveend');
                      dispatch({type: SET_CITY, payload: response})
                  })
             // изменяем центр, чтобы вызвать ререндер и вызвать api calls
             setCenter([coords.lng, coords.lat])
         })
-        map.on('click', function () {
-            console.log('clicked');
+        map.on('click', function (ev) {
+            let latlng = map.mouseEventToLatLng(ev.originalEvent);
+            dispatch({type: SET_CLICKED_COORDINATES, payload: {lng: latlng.lng, lat: latlng.lat}})
         })
     }, [map]);
 

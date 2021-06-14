@@ -105,11 +105,16 @@
     background-color: #fff;
 }
 
-.g-side-bar__magic {
-    font-weight: bold;
-    padding: 8px;
-    width: 100%;
-    border: 1px solid #1cacd7;
-    color: #1cacd7;
-    text-align: center;
+.g-side-bar-entity__choice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 24px;
+}
+
+.g-side-bar-entity__coords {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 8px;
 }
