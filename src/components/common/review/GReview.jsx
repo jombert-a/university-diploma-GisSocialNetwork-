@@ -17,7 +17,7 @@ const Review = props => {
     }
 
     const [newReview, setNewReview] = React.useState('');
-    const [page, setPage] = React.useState(1);
+    const [page] = React.useState(1);
     const [reviews, setReviews] = React.useState([]);
     const [rating, setRating] = React.useState(5);
 

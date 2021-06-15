@@ -29,7 +29,7 @@ const GAccountMessages = props => {
                 .then ( result => {
                     dispatch({type: SET_CHATS, payload: result})
                 })
-        }, []
+        }, [dispatch]
     )
 
     React.useMemo(() => {

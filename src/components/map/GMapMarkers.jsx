@@ -41,7 +41,7 @@ const GMapMarkers = props => {
                 </Marker>)
         }
         else setSelectedEntity(<></>)
-    }, [selectedEntityCoords.lng, selectedEntityCoords.lat])
+    }, [selectedEntityCoords.lng, selectedEntityCoords.lat, dispatch])
 
     React.useEffect(
         () => {
@@ -61,7 +61,7 @@ const GMapMarkers = props => {
                     }>
                 </Marker>
             )));
-        }, [types, objectMarkersInfo]
+        }, [types, objectMarkersInfo, dispatch]
     );
 
     const eventsInfo = useSelector(state => state.events.events);
@@ -85,7 +85,7 @@ const GMapMarkers = props => {
                         }>
                     </Marker>
                 )));
-        }, [types, eventsInfo]
+        }, [types, eventsInfo, dispatch]
     )
 
     return (

@@ -45,21 +45,24 @@ const GSideBarNewEntity = props => {
                         <span>Маршрут</span>
                     </label>
                 </div>
-                <div className={`g-side-bar-entity__coords-picker`}>
-                    <div className={`g-side-bar-entity__coords`}>
-                        <label>
-                            <p>Долгота</p>
-                            <input type="number" value={lng} onChange={(e) => setLng(e.target.value)} className={'input input--100w'}/>
-                        </label>
-                        <label>
-                            <p>Широта</p>
-                            <input type="number" value={lat} onChange={(e) => setLat(e.target.value)} className={'input input--100w'}/>
-                        </label>
-                    </div>
-                    <span>Можете кликнуть на карте или ввести самостоятельно</span>
-                </div>
                 {
-                    lng && lat &&
+                    entity !== 'route' &&
+                    <div className={`g-side-bar-entity__coords-picker`}>
+                        <div className={`g-side-bar-entity__coords`}>
+                            <label>
+                                <p>Долгота</p>
+                                <input type="number" value={lng} onChange={(e) => setLng(e.target.value)} className={'input input--100w'}/>
+                            </label>
+                            <label>
+                                <p>Широта</p>
+                                <input type="number" value={lat} onChange={(e) => setLat(e.target.value)} className={'input input--100w'}/>
+                            </label>
+                        </div>
+                        <span>Можете кликнуть на карте или ввести самостоятельно</span>
+                    </div>
+                }
+                {
+                    ((lng && lat) || (entity === 'route')) &&
                     <GSideBarNewEntityForm type={entity} lng={lng} lat={lat} />
                 }
             </div>

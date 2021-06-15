@@ -17,25 +17,9 @@ export const apiObjects = {
         return instance.get(`/Objects/GetPreviewByClassifier/${id}`)
             .then(response => response.data)
     },
-    postObjectTest () {
+    postObject (object) {
         const token = sessionStorage.getItem('token');
-        return instance.post(`Objects`, {
-                way: {
-                    type: "Point",
-                    coordinates: [
-                        55.46947237053552,
-                        54.79270569121833
-                    ]
-                },
-                title: "Байрам",
-                previewDescription: "Продуктовый магазин",
-                description: "Продуктовый магазин байрам",
-                categoryId: 2,
-                private: false,
-                address: "Уфа",
-                price: 0,
-                typeId: 1
-            },
+        return instance.post(`Objects`, object,
             {
                 headers: {
                     Authorization: `Bearer ${token}`

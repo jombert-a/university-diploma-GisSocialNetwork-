@@ -9,22 +9,24 @@ const GSideBarCategories = props => {
     const [categoriesDOM, setCategoriesDOM] = React.useState([]);
     const dispatch = useDispatch();
 
-    function categoriesHandler(el) {
-        switch (el.typeId) {
-            case 1: {
-                apiObjects.getObjectsByClassifier(el.idCategoryClassifier)
-                    .then ( data => dispatch({type: SET_OBJECTS, payload: data} ));
-                break;
-            }
-            case 3: {
-                apiEvents.getEventsByClassifierId(el.idCategoryClassifier)
-                    .then ( data => dispatch({type: SET_EVENTS, payload: data} ));
-                break;
+    React.useEffect(() => {
+        function categoriesHandler(el) {
+            switch (el.typeId) {
+                case 1: {
+                    apiObjects.getObjectsByClassifier(el.idCategoryClassifier)
+                        .then ( data => dispatch({type: SET_OBJECTS, payload: data} ));
+                    break;
+                }
+                case 3: {
+                    apiEvents.getEventsByClassifierId(el.idCategoryClassifier)
+                        .then ( data => dispatch({type: SET_EVENTS, payload: data} ));
+                    break;
+                }
+                default: {
+                    return '';
+                }
             }
         }
-    }
-
-    React.useEffect(() => {
         let array = [];
         if (props.categories) {
             props.categories.forEach((el, index) => {
@@ -37,7 +39,7 @@ const GSideBarCategories = props => {
             })
         }
         setCategoriesDOM(array);
-    }, [props.categories])
+    }, [props.categories, dispatch])
     return (
         <>
             <ul className={`g-side-bar__categories`}>

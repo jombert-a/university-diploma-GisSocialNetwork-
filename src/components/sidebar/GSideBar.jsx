@@ -3,8 +3,7 @@ import '../../style/sidebar/GSideBar.css';
 import Icons from "../common/icons";
 import GSearch from "../search/GSearch";
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_TYPE, DELETE_TYPE, SET_SELECTED_TYPE} from "../../store/reducers/globalReducer";
-import GSideBarInfoController from "./GSideBarInfoController";
+import {ADD_TYPE, DELETE_TYPE, SET_SELECTED_TYPE, SET_SIDEBAR_TYPE} from "../../store/reducers/globalReducer";
 import {apiClassifier} from "../../api/Classifier";
 import {apiEvents} from "../../api/Events";
 import GSideBarCategories from "./Modules/GSideBarCategories";
@@ -70,7 +69,7 @@ const GSideBar = (props) => {
                     <li className={`g-side-bar__nav-link ${types.includes('objects') ? 'active' : ''}`}
                         onClick={() => typesHandler('objects')}> Объекты </li>
                     <li className={`g-side-bar__nav-link`}> Места   </li>
-                    <li className={`g-side-bar__nav-link`}> Машруты </li>
+                    <li className={`g-side-bar__nav-link`} onClick={() => dispatch({type: SET_SIDEBAR_TYPE, payload: 'routes'})}> Машруты </li>
                 </ul>
                 <h4> Интересное рядом </h4>
                 {eventsElem}

@@ -6,6 +6,7 @@ import GSideBar from "./GSideBar";
 import GSideBarInfoController from "./GSideBarInfoController";
 import {SET_SIDEBAR_TYPE} from "../../store/reducers/globalReducer";
 import GSideBarNewEntity from "./GSideBarNewEntity";
+import GSideBarRoutes from "./GSideBarRoutes";
 
 const GSideBarController = (props) => {
     const [hidden, setHidden] = React.useState(false);
@@ -18,6 +19,9 @@ const GSideBarController = (props) => {
             }
             case 'new-entity': {
                 return <GSideBarNewEntity />
+            }
+            case 'routes': {
+                return <GSideBarRoutes />
             }
             default:
                 return <GSideBar />

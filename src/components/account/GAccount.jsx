@@ -61,7 +61,7 @@ const GAccount = (props) => {
                 });
                 setConnection(hubConnection);
             }
-        }, [userId]
+        }, [userId, dispatch]
     )
 
     React.useEffect(
@@ -77,14 +77,14 @@ const GAccount = (props) => {
                     })
                 //     .catch(e => console.log('Connection failed: ', e));
             }
-        }, [connection]
+        }, [connection, username]
     );
 
     React.useEffect(
         () => {
             if (newMessage !== null && connection)
                 connection.invoke("Send", newMessage.message, newMessage.userName, newMessage.chatId);
-        }, [newMessage]
+        }, [newMessage, connection]
     )
 
     return (

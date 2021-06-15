@@ -14,7 +14,7 @@ const GMain = (props) => {
     React.useEffect(
         () => {
             history.push(`/${props.location.en}?lng=${props.coords.lng}&lat=${props.coords.lat}`);
-        }, [props.coords.lng, props.coords.lat, props.location.en]
+        }, [props.coords.lng, props.coords.lat, props.location.en, history]
     )
 
     // const hubConnection = React.useMemo(() => , [isAuth])

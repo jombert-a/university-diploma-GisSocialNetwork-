@@ -17,22 +17,21 @@ const GAccountFriends = props => {
         }, [friendsRequests.length]
     )
 
-    function writeMessage(id, name) {
-        let flag = false;
-        chatList.forEach(el => {
-            el.chatUsers.forEach(elem => {
-                if (id === elem.userId) {
-                    flag = true;
-                }
-            })
-        })
-        if (!flag) {
-            apiChatRooms.createPersonalChat({name, id})
-                .then ( result => console.log(result) );
-        }
-    }
-
     React.useEffect(() => {
+        function writeMessage(id, name) {
+            let flag = false;
+            chatList.forEach(el => {
+                el.chatUsers.forEach(elem => {
+                    if (id === elem.userId) {
+                        flag = true;
+                    }
+                })
+            })
+            if (!flag) {
+                apiChatRooms.createPersonalChat({name, id})
+                    .then ( result => console.log(result) );
+            }
+        }
         let buff = [];
         friendsList.forEach((el) => {
             const element =
@@ -43,7 +42,7 @@ const GAccountFriends = props => {
             buff.push(element)
         })
         setFriendsListDOM(buff);
-    }, [friendsList])
+    }, [friendsList, chatList])
 
     return (
         <div className={"g-account-friends"}>

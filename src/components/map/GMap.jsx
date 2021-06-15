@@ -5,6 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import { MapContainer, TileLayer} from 'react-leaflet';
 import '../../style/map/GMapLeafet.css';
 import 'leaflet/dist/leaflet.css';
+import L from "leaflet";
+
+// Import the routing machine JS and CSS:
+import 'leaflet-routing-machine'
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
 
 import {apiEvents} from "../../api/Events";
 import {apiLocation} from "../../api/Location";
@@ -20,45 +25,36 @@ import {Link} from "react-router-dom";
 
 const GMap = (props) => {
     const [center, setCenter] = React.useState([54.7230799, 55.9213715]);
-    const [zoom, setZoom] = React.useState(13);
     const [map, setMap] = React.useState();
     const types = useSelector(state => state.global.entityTypes);
     const flyTo = useSelector(state => state.global.flyTo);
     const dispatch = useDispatch();
 
-    function apiCallsByTypes() {
-        if (zoom >= 10) {
-            const corners = map.getBounds();
-            const cUL = corners.getNorthEast();
-            const cLR = corners.getSouthWest();
-            types.forEach(el => {
-                switch(el) {
-                    case 'objects':
-                        apiObjects.getObjectsByCoords(cUL, cLR)
-                            .then ( data => dispatch({type: SET_OBJECTS, payload: data} ));
-                        break;
-                    case 'events':
-                        apiEvents.getEventsByCoords(cUL, cLR)
-                            .then ( data => dispatch({type: SET_EVENTS, payload: data} ));
-                        break;
-                    default:
-                        break;
-                }
-            })
-        }
-    }
-
     React.useEffect(function () {
         if (types && map) {
-            apiCallsByTypes()
-        }
-    }, [types, center])
+                const corners = map.getBounds();
+                const cUL = corners.getNorthEast();
+                const cLR = corners.getSouthWest();
+                types.forEach(el => {
+                    switch(el) {
+                        case 'objects':
+                            apiObjects.getObjectsByCoords(cUL, cLR)
+                                .then ( data => dispatch({type: SET_OBJECTS, payload: data} ));
+                            break;
+                        case 'events':apiEvents.getEventsByCoords(cUL, cLR)
+                            .then ( data => dispatch({type: SET_EVENTS, payload: data} ));
+                            break;
+                        default:break;
+                    }
+                })
+            }
+    }, [map, types, center, dispatch])
 
     React.useEffect(() => {
         if (map && flyTo.lng && flyTo.lat) {
             map.flyTo([flyTo.lng, flyTo.lat], 17);
         }
-    }, [flyTo.lng, flyTo.lat]);
+    }, [map, flyTo.lng, flyTo.lat]);
 
     React.useEffect(() => {
         if (!map) return;
@@ -82,7 +78,6 @@ const GMap = (props) => {
             // отправляем в стор
             dispatch({type: SET_COORDS, payload: coords})
             // сайд запрос к апи, получаем ифнормацию о городе
-            // так делать нельзя, но это быстрее, чем вводить санки или сагу
             apiLocation.getCityByCoords(coords)
                  .then ( response => {
                      console.log('apiLocation moveend');
@@ -95,13 +90,38 @@ const GMap = (props) => {
             let latlng = map.mouseEventToLatLng(ev.originalEvent);
             dispatch({type: SET_CLICKED_COORDINATES, payload: {lng: latlng.lng, lat: latlng.lat}})
         })
-    }, [map]);
+    }, [map, dispatch]);
+
+    // Routing machine ref
+    const RoutingMachineRef = React.useRef(null)
+    const route = useSelector(state => state.routes.selectedRoute);
+
+    React.useEffect(
+        () => {
+           if (map) {
+               if (route.length > 0) {
+                   RoutingMachineRef.current = L.Routing.control({
+                       waypoints: [
+                           L.latLng(54.723430549963815,55.947704315185554),
+                           L.latLng(54.747266355663804, 55.982980728149414),
+                           L.latLng(54.77811808677962,  56.03662490844727),
+                       ],
+                   }).addTo(map)
+               }
+               else {
+                   if(RoutingMachineRef.current) {
+                       map.removeControl(RoutingMachineRef.current);
+                   }
+               }
+           }
+        }, [map, route]
+    )
 
     return (
         <div>
             <MapContainer
                 center={center}
-                zoom={zoom}
+                zoom={13}
                 className={'g-map'}
                 scrollWheelZoom={true}
                 whenCreated={setMap}>

@@ -4,5 +4,15 @@ import { mapObjectsReducer } from "./mapObjectsReducer";
 import { eventsReducer } from "./eventsReducer";
 import {authReducer} from "./authReducer";
 import {accountReducer} from "./accountReducer";
+import {routesReducer} from "./routesReducer";
 
-export default combineReducers({ global: globalReducer, mapObjects: mapObjectsReducer, events: eventsReducer, auth: authReducer, account: accountReducer });
+export default combineReducers(
+    {
+        global: globalReducer,
+        mapObjects: mapObjectsReducer,
+        events: eventsReducer,
+        auth: authReducer,
+        account: accountReducer,
+        routes: routesReducer
+    }
+);

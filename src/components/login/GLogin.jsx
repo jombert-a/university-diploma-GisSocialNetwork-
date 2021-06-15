@@ -8,7 +8,7 @@ import {Link, Redirect} from "react-router-dom";
 const GLogin = props => {
     const [login, setLogin] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [hidden, setHidden] = React.useState(true);
+    const [hidden] = React.useState(true);
     const dispatch = useDispatch();
     const isAuth = useSelector(state => state.auth.isAuth);
     function handleSubmit(e) {

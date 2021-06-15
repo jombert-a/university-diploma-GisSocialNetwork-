@@ -26,7 +26,7 @@ const GAccountChat = props => {
                 .then(result => {
                     dispatch({type: SET_MESSAGES, payload: {messages: result, id: props.id}})
                 })
-        }, [props.id]
+        }, [props.id, dispatch]
     )
 
     React.useMemo(
@@ -39,7 +39,7 @@ const GAccountChat = props => {
                 array.push(message);
             })
             setMessagesDOM(array);
-        }, [messages, userId]
+        }, [messages, userId, props.id]
     )
 
     return (
