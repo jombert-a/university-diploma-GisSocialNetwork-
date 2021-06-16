@@ -118,3 +118,24 @@
     justify-content: space-around;
     margin-bottom: 8px;
 }
+
+.g-side-bar-new-route__coords {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 8px;
+}
+
+.g-side-bar-new-route__coords-picker {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.g-side-bar-new-route__point-control {
+    display: flex;
+    flex-direction: column;
+}
+
+.g-side-bar-new-route__selected-point {
+    color: crimson;
+}

@@ -95,7 +95,7 @@ const GSideBarNewObjectForm = props => {
             </label>
             <label>
                 <p>Адрес</p>
-                <input className={'input'} value={address}/>
+                <input className={'input'} defaultValue={address}/>
             </label>
             <label>
                 <p>Категория</p>

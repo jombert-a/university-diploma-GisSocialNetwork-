@@ -1,6 +1,7 @@
 import React from 'react'
 import {useSelector} from "react-redux";
 import GSideBarNewEntityForm from "./GSideBarNewEntityForm";
+import {Redirect} from "react-router-dom";
 
 const GSideBarNewEntity = props => {
     const [entity, setEntity] = React.useState('object');
@@ -9,6 +10,7 @@ const GSideBarNewEntity = props => {
 
     const clickedLng = useSelector(state => state.global.clickedCoordinates.lng);
     const clickedLat = useSelector(state => state.global.clickedCoordinates.lat);
+    const isAuth = useSelector(state => state.auth.isAuth);
 
     React.useMemo( () => {
         setLng(clickedLng);
@@ -19,8 +21,8 @@ const GSideBarNewEntity = props => {
         setEntity(e.target.value);
     }
 
-    return (
-        <div className={`g-side-bar__body`}>
+    return isAuth
+        ? <div className={`g-side-bar__body`}>
             <h4>Добавление новой сущности</h4>
             <div className={'g-side-bar-entity'}>
                 <div className={`g-side-bar-entity__choice`}>
@@ -67,7 +69,7 @@ const GSideBarNewEntity = props => {
                 }
             </div>
         </div>
-    )
+        : <Redirect push to={'/login'} />
 }
 
 export default GSideBarNewEntity;

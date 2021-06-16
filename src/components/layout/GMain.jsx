@@ -7,6 +7,7 @@ import GAccount from "../account/GAccount";
 import GLogin from "../login/GLogin";
 import GRegistration from "../login/GRegistration";
 import GSideBarController from "../sidebar/GSideBarController";
+import GHub from "../hub/GHub";
 
 const GMain = (props) => {
     let history = useHistory();
@@ -17,7 +18,7 @@ const GMain = (props) => {
         }, [props.coords.lng, props.coords.lat, props.location.en, history]
     )
 
-    // const hubConnection = React.useMemo(() => , [isAuth])
+    console.log('main rerender');
 
     return (
         <main style={{height: '100%'}}>
@@ -29,13 +30,14 @@ const GMain = (props) => {
                     <GLogin />
                 </Route>
                 <Route path="/account">
-                    {isAuth ? <GAccount /> : <Redirect to="/login" />}
+                    {isAuth ? <GAccount /> : <Redirect push to="/login" />}
                 </Route>
                 <Route path={`/`}>
                     <GMap />
                     <GSideBarController/>
                 </Route>
             </Switch>
+            <GHub />
         </main>
     )
 }

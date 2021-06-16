@@ -4,5 +4,14 @@ export const apiRoutes = {
     getRoutes() {
         return instance.get('Routes')
             .then (response => response.data)
+    },
+    postRoute(route) {
+        const token = sessionStorage.getItem('token');
+        return instance.post('Routes', route,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
     }
 }

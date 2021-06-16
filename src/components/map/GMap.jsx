@@ -100,12 +100,13 @@ const GMap = (props) => {
         () => {
            if (map) {
                if (route.length > 0) {
+                   if (route.length > 1 && RoutingMachineRef.current) {
+                       map.removeControl(RoutingMachineRef.current);
+                   }
+
+                   const way = route.map(el => L.latLng(el[1], el[0]));
                    RoutingMachineRef.current = L.Routing.control({
-                       waypoints: [
-                           L.latLng(54.723430549963815,55.947704315185554),
-                           L.latLng(54.747266355663804, 55.982980728149414),
-                           L.latLng(54.77811808677962,  56.03662490844727),
-                       ],
+                       waypoints: way,
                    }).addTo(map)
                }
                else {
