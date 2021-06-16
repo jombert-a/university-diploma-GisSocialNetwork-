@@ -47,7 +47,7 @@ const GAccountFriends = props => {
     return (
         <div className={"g-account-friends"}>
             {requests}
-            <h3>Список друзей: </h3>
+            <h4>Список друзей: </h4>
             {
                 friendsListDOM.length >= 1 ?
                     <ul className={"g-account-friends__ul"}>

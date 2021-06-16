@@ -4,7 +4,7 @@ import {SET_CHATS} from "../../store/reducers/accountReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useLocation} from "react-router-dom";
 import GAccountChat from "./GAccountChat";
-
+import  '../../style/account/accountMessages.css';
 
 const GAccountMessages = props => {
     const dispatch = useDispatch();
@@ -36,11 +36,11 @@ const GAccountMessages = props => {
             let array = [];
             chats.forEach(el => {
                 const chat =
-                    <li key={el.idChat}>
+                    <li key={el.idChat} className={'g-account-messages__chat-item'}>
                         <Link to={`/account/messages/${el.idChat}`}>
                             <div>
                                 <p>{el.chatName}</p>
-                                {el.lastMessage ? <p>{el.lastMessage.messageText}</p> : ''}
+                                {el.lastMessage ? <p className={`g-account-messages__last-message`}>{el.lastMessage.messageText}</p> : ''}
                             </div>
                         </Link>
                     </li>
@@ -51,10 +51,10 @@ const GAccountMessages = props => {
     )
 
     return (
-        <div>
-            <h3>Мои диалоги</h3>
-            <div>
-                <ul>
+        <div className={`g-account-messages`}>
+            <h4>Мои диалоги</h4>
+            <div className={`g-account-messages__body`}>
+                <ul className={`g-account-messages__chat-list`}>
                     {chatsDOM}
                 </ul>
                 {

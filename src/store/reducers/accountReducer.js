@@ -33,18 +33,6 @@ export function accountReducer (state = initialState, action) {
                 chats: action.payload
             }
         }
-        case SET_NEW_MESSAGE: {
-            return {
-                ...state,
-                newMessage: action.payload
-            }
-        }
-        case SET_MESSAGES: {
-            return {
-                ...state,
-                messages: [...(state.messages.filter(el=>el.chatId!==action.payload.id)), ...action.payload.messages]
-            }
-        }
         default:
             return state;
     }

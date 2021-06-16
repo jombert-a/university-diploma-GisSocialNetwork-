@@ -46,7 +46,7 @@ const GAccountPage = props => {
                     <div className={"g-account-page__info"}>
                         <div>
                             <span className={"g-account-page__prop"}>Полное имя:</span>
-                            <span className={"g-account-page__prop"}>Город:</span>
+                            <span className={"g-account-page__prop"}>Дата рождения:</span>
                             <span className={"g-account-page__prop"}>Электронная почта:</span>
                         </div>
                         <div>

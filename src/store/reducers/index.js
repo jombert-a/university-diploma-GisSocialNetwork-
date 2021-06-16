@@ -5,6 +5,7 @@ import { eventsReducer } from "./eventsReducer";
 import {authReducer} from "./authReducer";
 import {accountReducer} from "./accountReducer";
 import {routesReducer} from "./routesReducer";
+import {messagesReducer} from "./messageReducer";
 
 export default combineReducers(
     {
@@ -13,6 +14,7 @@ export default combineReducers(
         events: eventsReducer,
         auth: authReducer,
         account: accountReducer,
-        routes: routesReducer
+        routes: routesReducer,
+        messages: messagesReducer
     }
 );

@@ -4,16 +4,16 @@ import {apiFriendship} from "../../api/Friendship";
 import {SET_CHATS, SET_FRIEND_REQUESTS, SET_FRIENDS} from "../../store/reducers/accountReducer";
 import {apiChatRooms} from "../../api/ChatRooms";
 import {HubConnectionBuilder} from "@microsoft/signalr";
+import {ADD_TO_MESSAGES, SET_RECEIVED_MESSAGE} from "../../store/reducers/messageReducer";
 
 const GHub = props => {
     const dispatch = useDispatch();
+
     const userId = useSelector(state => state.auth.userId);
     const username = useSelector(state => state.auth.username);
-
+    const newMessage = useSelector(state => state.messages.newMessage);
     const [ connection, setConnection ] = React.useState(null);
-
     /* for connection */
-    const newMessage = useSelector(state => state.account.newMessage);
 
     React.useEffect(
         () => {
@@ -53,15 +53,16 @@ const GHub = props => {
                 connection.start()
                     .then(result => {
                         connection.invoke('Enter', username);
-                        connection.on('Receive', function (message, userName) {
-                            console.log(message);
+                        connection.on('Receive', function (message, userName, userId, chatId) {
+                            dispatch({type: SET_RECEIVED_MESSAGE, payload: {message, userName, userId, chatId}});
+
                         });
                         connection.on("Notify", function (message) {
                             console.log(message);
                         });
                     })
             }
-        }, [connection, username]
+        }, [connection, username, dispatch]
     );
 
     React.useEffect(
