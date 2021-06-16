@@ -1,13 +1,39 @@
 import React from 'react'
 import img from '../../assets/temp/islands-200.jpg';
+import {apiAccount} from "../../api/Account";
+import {useSelector} from "react-redux";
+import {apiUprofileImages} from "../../api/UprofileImages";
 
 const GAccountPage = props => {
 
-    const [birthday, setBirthday] = React.useState('18 августа 1999 г.');
-    const [city, setCity] = React.useState('Уфа');
-    const [university, setUniversity] = React.useState('IT-институт УГНТУ');
-    const [status, setStatus] = React.useState('ст. гр. БПО-17-01');
+    const [account, setAccount] = React.useState({});
     const [isEdit, setIsEdit] = React.useState(true);
+    const [userImage, setUserImage] = React.useState({});
+    const userId = useSelector(state => state.auth.userId);
+
+    React.useEffect(
+        () => {
+            if (userId) {
+                apiAccount.getAccount(userId)
+                    .then ( result => setAccount(result) );
+                apiUprofileImages.getProfileImage(userId)
+                    .then ( result => setUserImage(result) );
+            }
+        }, [userId]
+    )
+
+    React.useEffect(
+        () => {
+            console.log(account);
+        }, [account]
+    )
+
+    React.useEffect(
+        () => {
+            console.log(userImage, 'userImg')
+        }, [userImage]
+    )
+
     return (
         <div className="g-account-page">
             <header>
@@ -16,18 +42,17 @@ const GAccountPage = props => {
                     <button className={"g-account-page__edit"} onClick={() => setIsEdit(!isEdit)}>Редактировать</button>
                 </div>
                 <div>
-                    <h3>Ахияров Роберт</h3>
-                    <input value={status} disabled={isEdit} onChange={(e) => setStatus(e.target.value)}/>
+                    <h3>{account.username}</h3>
                     <div className={"g-account-page__info"}>
                         <div>
-                            <span className={"g-account-page__prop"}>Дата рождения:</span>
+                            <span className={"g-account-page__prop"}>Полное имя:</span>
                             <span className={"g-account-page__prop"}>Город:</span>
-                            <span className={"g-account-page__prop"}>Место учебы:</span>
+                            <span className={"g-account-page__prop"}>Электронная почта:</span>
                         </div>
                         <div>
-                            <input value={birthday}  disabled={isEdit} onChange={(e) => setBirthday(e.target.value)}/>
-                            <input value={city}  disabled={isEdit} onChange={(e) => setCity(e.target.value)}/>
-                            <input value={university}  disabled={isEdit} onChange={(e) => setUniversity(e.target.value)}/>
+                            <input value={account.fullname} disabled={isEdit} onChange={(e) => setAccount({...account, fullname: e.target.value})}/>
+                            <input value={account.birthday}  disabled={isEdit} onChange={(e) => setAccount({...account, birthday: e.target.value})}/>
+                            <input value={account.email}  disabled={isEdit} onChange={(e) => setAccount({...account, email: e.target.value})}/>
                         </div>
                     </div>
                 </div>

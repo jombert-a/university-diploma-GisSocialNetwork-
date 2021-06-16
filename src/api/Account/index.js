@@ -21,5 +21,9 @@ export const apiAccount = {
     getUsers () {
         return instance.get('Account/GetUsers')
             .then ( response => response.data )
+    },
+    getAccount (userId) {
+        return instance.get(`Account/GetUser/${userId}`)
+            .then (response => response.data)
     }
 }
