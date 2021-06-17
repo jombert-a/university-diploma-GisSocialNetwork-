@@ -5,10 +5,12 @@ import {apiPhoto} from "../../api/Photo";
 
 import {GSwiper} from "../common/swiper";
 import GReview from "../common/review/GReview";
+import {useHistory} from "react-router-dom";
 
 const GSideBarInfoObject = props => {
     const [data, setData] = React.useState();
     const [photoArray, setPhotoArray] = React.useState([]);
+    let history = useHistory();
 
     useEffect(
         () => {
@@ -16,7 +18,8 @@ const GSideBarInfoObject = props => {
                 .then(data => setData(data));
             apiPhoto.getPhotosByIds(props.object.idEntity, props.object.typeId)
                 .then(data => setPhotoArray(data));
-        }, [props.object.idEntity, props.object.typeId]
+            history.push(`${history.location.pathname}${history.location.search}&entity=object&id=${props.object.idEntity}`);
+        }, [props.object.idEntity, props.object.typeId, history]
     );
 
     const photos = React.useMemo( () => photoArray.map(el => (
@@ -65,7 +68,7 @@ const GSideBarInfoObject = props => {
                 <h4>Рейтинг: {data.rating}</h4>
                 <div>
                     <button className={`button button--tab ${tab === 'contacts' ? 'active' : ''}`} onClick={() => setTab('contacts')}>Контакты</button>
-                    <button className={`button button--tab ${tab === 'reviews' ? 'active' : ''}\``} onClick={() => setTab('reviews')}>Отзывы</button>
+                    <button className={`button button--tab ${tab === 'reviews' ? 'active' : ''}`} onClick={() => setTab('reviews')}>Отзывы</button>
                 </div>
             </header>
             }

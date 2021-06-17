@@ -50,6 +50,11 @@
     margin-right: 16px;
     display: flex;
     flex-direction: column;
+    width: 200px;
+}
+
+.g-account-page__photo * {
+    margin-bottom: 8px;
 }
 
 .g-account-page__photo img {
