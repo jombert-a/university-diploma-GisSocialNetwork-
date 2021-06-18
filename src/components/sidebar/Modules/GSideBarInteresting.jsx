@@ -13,7 +13,6 @@ const GSideBarInteresting = props => {
         if (props.events) {
             let array = [];
             props.events.forEach(el => {
-                console.log(el);
                 const event =
                     <div className={`g-side-bar__interesting interesting-card`}
                          onClick={() => {

@@ -36,8 +36,10 @@ const GAccountFriends = props => {
         friendsList.forEach((el) => {
             const element =
                 <li key={el.idUser} className={"g-account-friends__li"}>
-                    {el.username}
-                    <button className={'button'} onClick={() => writeMessage(el.idUser, el.username)}>Написать</button>
+                    <Link to={`/account/${el.idUser}`}>
+                        {el.username}
+                        <button className={'button'} onClick={() => writeMessage(el.idUser, el.username)}>Написать</button>
+                    </Link>
                 </li>
             buff.push(element)
         })

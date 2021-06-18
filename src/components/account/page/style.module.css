@@ -1,0 +1,121 @@
+.body {
+    width: 1000px;
+    padding: 30px 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.body--component {
+    width: 800px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    width: 100%;
+    background: #fff;
+}
+
+.banner {
+    height: 285px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.banner img {
+    width: 100%;
+    position: absolute;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+.edit {
+    margin-top: 8px;
+    padding-right: 8px;
+    gap: 8px;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.about {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: -48px;
+    z-index: 2;
+    border-bottom: 1px solid black;
+}
+
+.photo {
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+}
+
+.photo img {
+    border-radius: 50%;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+}
+
+.tab {
+    margin-right: 8px;
+    color: #8c8d90;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.tab:hover {
+    color: #2a41e8;
+}
+
+.tab--clicked {
+    color: #2a41e8;
+}
+
+.info {
+    background: #fff;
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input {
+    text-align: center;
+    border: unset;
+    font-weight: bold;
+}
+
+.favourites {
+    background: #fff;
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}

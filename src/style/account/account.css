@@ -1,14 +1,14 @@
 .g-account {
     display: flex;
-    width: 1000px;
     height: 100vh;
     margin: 0 auto;
+    flex-direction: column;
 }
 
 .g-account__inner {
     display: flex;
     flex: 1 0 auto;
-    background: #ede6db;
+    background: #E5E5E5;
     padding: 16px;
 }
 

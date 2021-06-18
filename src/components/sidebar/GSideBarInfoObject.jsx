@@ -2,14 +2,17 @@ import React, {useEffect} from 'react'
 
 import {apiObjects} from "../../api/Objects";
 import {apiPhoto} from "../../api/Photo";
+import {apiFavourites} from "../../api/Favourites";
 
 import {GSwiper} from "../common/swiper";
 import GReview from "../common/review/GReview";
 import {useHistory} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const GSideBarInfoObject = props => {
     const [data, setData] = React.useState();
     const [photoArray, setPhotoArray] = React.useState([]);
+    const isAuth = useSelector(state => state.auth.isAuth);
     let history = useHistory();
 
     useEffect(
@@ -66,6 +69,10 @@ const GSideBarInfoObject = props => {
                 <h4>{data.title}</h4>
                 <p>{data.description}</p>
                 <h4>Рейтинг: {data.rating}</h4>
+                {
+                    isAuth &&
+                    <button className={'button'} onClick={() => apiFavourites.addToFavourites(data)}>Добавить в избранное</button>
+                }
                 <div>
                     <button className={`button button--tab ${tab === 'contacts' ? 'active' : ''}`} onClick={() => setTab('contacts')}>Контакты</button>
                     <button className={`button button--tab ${tab === 'reviews' ? 'active' : ''}`} onClick={() => setTab('reviews')}>Отзывы</button>

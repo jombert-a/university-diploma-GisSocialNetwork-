@@ -25,5 +25,16 @@ export const apiAccount = {
     getAccount (userId) {
         return instance.get(`Account/GetUser/${userId}`)
             .then (response => response.data)
+    },
+    editAccount (payload) {
+        console.log(payload);
+        const token = sessionStorage.getItem('token');
+        return instance.put(`Account/${payload.idUser}`, payload,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
     }
 }
