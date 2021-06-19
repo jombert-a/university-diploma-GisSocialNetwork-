@@ -1,8 +1,11 @@
 import React from "react";
-import {apiEvents} from "../../api/Events";
+import {apiEvents} from "../../../api/Events";
+import {apiFavourites} from "../../../api/Favourites";
+import {useSelector} from "react-redux";
 
 const GSideBarInfoEvent = (props) => {
     const [data, setData] = React.useState();
+    const isAuth = useSelector(state => state.auth.isAuth);
 
     React.useEffect( () => {
         apiEvents.getEventById(props.event.idEntity)
@@ -22,6 +25,10 @@ const GSideBarInfoEvent = (props) => {
                     <p>Рейтинг: {data.rating}</p>
                     <p>Дата: {data.date}</p>
                     <p>Продолжительность: {data.duration}</p>
+                    {
+                        isAuth &&
+                        <button className={'button'} onClick={() => apiFavourites.addToFavourites(data)}>Добавить в избранное</button>
+                    }
                 </div>
             }
 

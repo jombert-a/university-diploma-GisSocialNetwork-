@@ -2,7 +2,7 @@ import React from 'react'
 import {apiMessages} from "../../api/Messages";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_MESSAGES, SET_NEW_MESSAGE} from "../../store/reducers/accountReducer";
-import {ADD_TO_MESSAGES, SET_OPENED_CHAT} from "../../store/reducers/messageReducer";
+import { SET_OPENED_CHAT} from "../../store/reducers/messageReducer";
 
 const GAccountChat = props => {
     const [messagesDOM, setMessagesDOM] = React.useState([]);

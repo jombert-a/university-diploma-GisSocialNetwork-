@@ -23,3 +23,7 @@ img {
 .leaflet-marker-icon  {
     height: 16px;
 }
+
+.swiper-container {
+    margin: 0 !important;
+}

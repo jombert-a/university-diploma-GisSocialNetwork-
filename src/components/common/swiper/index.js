@@ -13,7 +13,7 @@ export const GSwiper = (props) => {
     return (
         <Swiper
             spaceBetween={24}
-            slidesPerView={1.5}
+            slidesPerView={props.spv}
         >
             {props.array.map( (el, index) =>  <SwiperSlide key={index}>{el}</SwiperSlide>)}
         </Swiper>

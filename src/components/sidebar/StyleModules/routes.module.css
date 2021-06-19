@@ -1,0 +1,10 @@
+.list {
+    margin: 0;
+    padding: 24px;
+}
+
+.elem {
+    list-style: decimal;
+    margin-bottom: 8px;
+    cursor: pointer;
+}

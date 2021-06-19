@@ -14,6 +14,7 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
 import {apiEvents} from "../../api/Events";
 import {apiLocation} from "../../api/Location";
 import {apiObjects} from "../../api/Objects";
+import {apiPlaces} from "../../api/Places";
 
 import {SET_CITY, SET_CLICKED_COORDINATES, SET_COORDS, SET_SIDEBAR_TYPE} from "../../store/reducers/globalReducer";
 import {SET_OBJECTS} from "../../store/reducers/mapObjectsReducer";
@@ -22,6 +23,7 @@ import {SET_EVENTS} from "../../store/reducers/eventsReducer";
 import GMapMarkers from "./GMapMarkers";
 
 import {Link} from "react-router-dom";
+import {SET_PLACES} from "../../store/reducers/placesReducer";
 
 const GMap = (props) => {
     const [center, setCenter] = React.useState([54.7230799, 55.9213715]);
@@ -41,14 +43,19 @@ const GMap = (props) => {
                             apiObjects.getObjectsByCoords(cUL, cLR)
                                 .then ( data => dispatch({type: SET_OBJECTS, payload: data} ));
                             break;
+                        case 'places':
+                            apiPlaces.getPlacesByCoords(cUL, cLR)
+                                .then ( data => dispatch({type: SET_PLACES, payload: data}));
+                            break;
                         case 'events':apiEvents.getEventsByCoords(cUL, cLR)
                             .then ( data => dispatch({type: SET_EVENTS, payload: data} ));
                             break;
-                        default:break;
+                        default:
+                            break;
                     }
                 })
             }
-    }, [map, types, center, dispatch])
+    }, [map, types, dispatch])
 
     React.useEffect(() => {
         if (map && flyTo.lng && flyTo.lat) {
@@ -80,7 +87,6 @@ const GMap = (props) => {
             // сайд запрос к апи, получаем ифнормацию о городе
             apiLocation.getCityByCoords(coords)
                  .then ( response => {
-                     console.log('apiLocation moveend');
                      dispatch({type: SET_CITY, payload: response})
                  })
             // изменяем центр, чтобы вызвать ререндер и вызвать api calls
@@ -90,11 +96,15 @@ const GMap = (props) => {
             let latlng = map.mouseEventToLatLng(ev.originalEvent);
             dispatch({type: SET_CLICKED_COORDINATES, payload: {lng: latlng.lng, lat: latlng.lat}})
         })
+        return function cleanup () {
+            map.off('click');
+            map.off('moveend');
+        }
     }, [map, dispatch]);
 
     // Routing machine ref
     const RoutingMachineRef = React.useRef(null)
-    const route = useSelector(state => state.routes.selectedRoute);
+    const route = useSelector(state => state.routes.selectedRoute.way.coordinates);
 
     React.useEffect(
         () => {

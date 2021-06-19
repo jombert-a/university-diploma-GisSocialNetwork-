@@ -1,0 +1,23 @@
+.body {
+    width: 600px;
+    padding: 30px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    border-radius: 16px;
+}
+
+.list {
+    padding-left: 0;
+}
+
+.elem {
+    list-style: none;
+    margin-bottom: 16px;
+}
+
+.inner {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    margin-bottom:8px;
+}

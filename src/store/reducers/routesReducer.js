@@ -3,7 +3,11 @@ export const SET_SELECTED_ROUTE = "SET_SELECTED_ROUTE";
 
 const initialState = {
     routes: [],
-    selectedRoute: []
+    selectedRoute: {
+        way: {
+            coordinates: []
+        }
+    }
 }
 
 export function routesReducer (state = initialState, action) {

@@ -80,22 +80,6 @@
     margin-bottom: 8px;
 }
 
-.g-account-friends__ul {
-    padding-left: 0;
-}
-
-.g-account-friends__li {
-    list-style: none;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    width: 400px;
-}
-
-.g-account-friends__li button {
-    margin-right: 8px;
-}
-
 .g-account-messages__ul {
     padding-left: 0;
 }
@@ -145,26 +129,6 @@
 
 .g-account-messages__input textarea {
     flex-grow: 1;
-}
-
-.g-account-users {
-    width: 100%;
-    padding: 16px;
-}
-
-.g-account-users__list {
-    padding-left: 0;
-}
-
-.g-account-users__elem {
-    list-style: none;
-    margin-bottom: 16px;
-}
-
-.g-account-users__elem-body {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    margin-bottom:8px;
 }
 
 .g-account-requests {

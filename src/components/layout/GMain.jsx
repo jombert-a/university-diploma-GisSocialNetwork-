@@ -18,8 +18,6 @@ const GMain = (props) => {
         }, [props.coords.lng, props.coords.lat, props.location.en, history]
     )
 
-    console.log('main rerender');
-
     return (
         <main style={{height: '100%'}}>
             <Switch>

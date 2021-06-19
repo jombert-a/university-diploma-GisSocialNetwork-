@@ -1,0 +1,38 @@
+.body {
+    width: 600px;
+    padding: 30px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    border-radius: 16px;
+}
+
+.list {
+    padding-left: 0;
+}
+
+.elem {
+    list-style: none;
+    margin-bottom: 8px;
+    width: 400px;
+}
+
+.elem button {
+    margin-right: 8px;
+}
+
+.elem a, .elem a:active, .elem a:visited {
+    color: black;
+    text-decoration: unset;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.requests {
+    text-decoration: unset;
+}
+
+.requests:active, .requests:visited {
+    color: black;
+}

@@ -1,20 +1,20 @@
 import React from 'react'
 import banner from '../../../assets/content/profile-cover.jpg';
+import banner1 from '../../../assets/content/peizaji-01.jpg';
 import {apiAccount} from "../../../api/Account";
 import {useSelector} from "react-redux";
-import {apiUprofileImages} from "../../../api/UprofileImages";
 import style from './style.module.css';
 import {useParams} from "react-router-dom";
 import GAccountPageInfo from "./modules/GAccountPageInfo";
 import GAccountPageFavourites from "./modules/GAccountPageFavourites";
+import GAccountPageNewAvatar from "./modules/GAccountPageNewAvatar";
+import {apiFriendship} from "../../../api/Friendship";
 
 const GAccountPage = props => {
     let params = useParams();
     const userId = useSelector(state => state.auth.userId);
-
+    const friendsId = useSelector(state => state.account.friendsId);
     const [isEdit, setIsEdit] = React.useState(true);
-    const [isNewAvatar, setIsNewAvatar] = React.useState(false);
-    const [newUserImage, setNewUserImage] = React.useState(null);
     const [account, setAccount] = React.useState({
         username: '',
         birthday: '',
@@ -30,6 +30,9 @@ const GAccountPage = props => {
             switch(tab) {
                 case 'favourites':
                     setTabComponent(<GAccountPageFavourites id={params.id ? params.id : userId} />)
+                    break
+                case 'new-ava':
+                    setTabComponent(<GAccountPageNewAvatar />)
                     break
                 default:
                     setTabComponent(<GAccountPageInfo id={params.id ? params.id : userId} isEdit={isEdit} account={account}/>)
@@ -59,48 +62,32 @@ const GAccountPage = props => {
         }, [userId, params.id]
     )
 
-    function loadHandler(e) {
-        e.preventDefault();
-        if (newUserImage !== null) {
-            const formData = new FormData();
-            formData.append(
-                'file',
-                newUserImage
-            )
-            formData.append(
-                'jsonString',
-                JSON.stringify({
-                    "userId": userId,
-                    "description": "profilePhotoDesc"
-                })
-            )
-            apiUprofileImages.postProfileImage(formData, userId);
-        }
+    function addFriend (id) {
+        apiFriendship.addFriend(id)
+            .then ( result => console.log(result));
+    }
+
+    function deleteFriend (id) {
+        apiFriendship.deleteFriend(id)
+            .then (result => console.log(result));
     }
 
     return (
         <div className={style.body}>
             <header className={style.header}>
                 <div className={style.banner}>
-                    <img src={banner} alt={'bg'}/>
+                    <img src={params.id ? banner1 : banner} alt={'bg'}/>
                     {
                         params.id ||
                         <div className={style.edit}>
                             <button className={"button"} onClick={() => setIsEdit(!isEdit)}>Редактировать</button>
-                            <button className={"button"} onClick={() => setIsNewAvatar(!isNewAvatar)}>Новая фотография</button>
+                            <button className={"button"} onClick={() => setTab('new-ava')}>Новая фотография</button>
                         </div>
                     }
                 </div>
                 <div className={style.about}>
                     <div className={style.photo}>
                         <img src={`http://139.162.168.53:8989/api/UprofileImages/GetImgThumb/${params.id ? params.id : userId}`} alt={'avatar'}/>
-                        {
-                            isNewAvatar &&
-                            <form onSubmit={(e) => loadHandler(e)}>
-                                <input type="file" onChange={(e) => setNewUserImage(e.target.files[0])} className={'button'}/>
-                                <button className={'button--tab'}>Загрузить</button>
-                            </form>
-                        }
                     </div>
                     <h4>{account.username}</h4>
                     <p>{account.fullname}</p>
@@ -109,13 +96,16 @@ const GAccountPage = props => {
                     <div className={style.tabs}>
                         <span className={`${style.tab} ${tab === 'info' ? style['tab--clicked'] : ''}`} onClick={() => setTab('info')}>Информация</span>
                         {
-                            params.id ||
+                            params.id ? '' :
                             <span className={`${style.tab} ${tab === 'favourites' ? style['tab--clicked'] : ''}`} onClick={() => setTab('favourites')}>Избранное</span>
                         }
                     </div>
                     {
-                        params.id &&
-                        <button className={'button button--tab'}>
+                        params.id && friendsId.includes(+params.id) ?
+                        <button className={'button button--tab'} onClick={() => deleteFriend(params.id)}>
+                            Удалить из друзей
+                        </button> :
+                        <button className={'button button--tab'} onClick={() => addFriend(params.id)}>
                             Добавить в друзья
                         </button>
                     }

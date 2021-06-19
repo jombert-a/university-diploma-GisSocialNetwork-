@@ -27,5 +27,13 @@ export const apiFriendship = {
                 }
             })
             .then ( response => response.data )
+    },
+    deleteFriend (id) {
+        const token = sessionStorage.getItem('token');
+        return instance.delete(`Friendship/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
     }
 }

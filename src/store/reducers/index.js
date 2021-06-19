@@ -6,6 +6,7 @@ import {authReducer} from "./authReducer";
 import {accountReducer} from "./accountReducer";
 import {routesReducer} from "./routesReducer";
 import {messagesReducer} from "./messageReducer";
+import {placesReducer} from "./placesReducer";
 
 export default combineReducers(
     {
@@ -15,6 +16,7 @@ export default combineReducers(
         auth: authReducer,
         account: accountReducer,
         routes: routesReducer,
-        messages: messagesReducer
+        messages: messagesReducer,
+        places: placesReducer
     }
 );

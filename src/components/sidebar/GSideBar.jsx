@@ -68,7 +68,8 @@ const GSideBar = (props) => {
                         onClick={(e) => typesHandler('events', e)}> Cобытия </li>
                     <li className={`g-side-bar__nav-link ${types.includes('objects') ? 'active' : ''}`}
                         onClick={() => typesHandler('objects')}> Объекты </li>
-                    <li className={`g-side-bar__nav-link`}> Места   </li>
+                    <li className={`g-side-bar__nav-link ${types.includes('places') ? 'active' : ''}`}
+                        onClick={(e) => typesHandler('places', e)}> Места   </li>
                     <li className={`g-side-bar__nav-link`} onClick={() => dispatch({type: SET_SIDEBAR_TYPE, payload: 'routes'})}> Машруты </li>
                 </ul>
                 <h4> Интересное рядом </h4>

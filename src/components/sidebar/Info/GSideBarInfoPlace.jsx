@@ -1,29 +1,28 @@
-import React, {useEffect} from 'react'
-
-import {apiObjects} from "../../api/Objects";
-import {apiPhoto} from "../../api/Photo";
-import {apiFavourites} from "../../api/Favourites";
-
-import {GSwiper} from "../common/swiper";
-import GReview from "../common/review/GReview";
-import {useHistory} from "react-router-dom";
+import React from 'react'
+import {apiPlaces} from "../../../api/Places";
+import {GSwiper} from "../../common/swiper";
+import GReview from "../../common/review/GReview";
+import {apiFavourites} from "../../../api/Favourites";
 import {useSelector} from "react-redux";
+import {apiPhoto} from "../../../api/Photo";
 
-const GSideBarInfoObject = props => {
-    const [data, setData] = React.useState();
-    const [photoArray, setPhotoArray] = React.useState([]);
+const GSideBarInfoPlace = props => {
     const isAuth = useSelector(state => state.auth.isAuth);
-    let history = useHistory();
+    const [data, setData] = React.useState({});
+    const [photoArray, setPhotoArray] = React.useState([]);
+    let [tab, setTab] = React.useState('contacts');
 
-    useEffect(
+    React.useEffect(
         () => {
-            apiObjects.getInfoById(props.object.idEntity)
-                .then(data => setData(data));
-            apiPhoto.getPhotosByIds(props.object.idEntity, props.object.typeId)
-                .then(data => setPhotoArray(data));
-            history.push(`${history.location.pathname}${history.location.search}&entity=object&id=${props.object.idEntity}`);
-        }, [props.object.idEntity, props.object.typeId, history]
-    );
+            let p1 = apiPlaces.getDetailById(props.place.idEntity)
+            let p2 = apiPhoto.getPhotosByIds(props.place.idEntity, props.place.typeId)
+            Promise.all([p1, p2])
+                .then(result => {
+                    setData(result[0])
+                    setPhotoArray(result[1])
+                })
+        }, [props.place.idEntity, props.place.typeId]
+    )
 
     const photos = React.useMemo( () => photoArray.map(el => (
         <div className={'g-side-bar-info__image'}>
@@ -31,7 +30,11 @@ const GSideBarInfoObject = props => {
         </div>
     )), [photoArray]);
 
-    let [tab, setTab] = React.useState('contacts');
+    React.useEffect(
+        () => {
+            console.log(data);
+        }, [data]
+    )
 
     const tabs = () => {
         switch(tab) {
@@ -56,7 +59,7 @@ const GSideBarInfoObject = props => {
                 )
             default:
                 return (
-                    <GReview typeId={props.object.typeId} id={props.object.idEntity} />
+                    <GReview typeId={props.place.typeId} id={props.place.idEntity} />
                 )
 
         }
@@ -84,4 +87,4 @@ const GSideBarInfoObject = props => {
     )
 }
 
-export default GSideBarInfoObject;
+export default  GSideBarInfoPlace;

@@ -4,7 +4,7 @@ import {apiFriendship} from "../../api/Friendship";
 import {SET_CHATS, SET_FRIEND_REQUESTS, SET_FRIENDS} from "../../store/reducers/accountReducer";
 import {apiChatRooms} from "../../api/ChatRooms";
 import {HubConnectionBuilder} from "@microsoft/signalr";
-import {ADD_TO_MESSAGES, SET_RECEIVED_MESSAGE} from "../../store/reducers/messageReducer";
+import {SET_RECEIVED_MESSAGE} from "../../store/reducers/messageReducer";
 
 const GHub = props => {
     const dispatch = useDispatch();

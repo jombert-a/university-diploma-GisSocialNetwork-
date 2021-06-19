@@ -8,6 +8,7 @@ export const SET_MESSAGES = "SET_MESSAGES"
 const initialState = {
     users: [],
     friends: [],
+    friendsId: [],
     friendRequests: [],
     chats: [],
     messages: [],
@@ -19,7 +20,8 @@ export function accountReducer (state = initialState, action) {
         case SET_FRIENDS:
             return {
                 ...state,
-                friends: action.payload
+                friends: action.payload,
+                friendsId: action.payload.map(el => el.idUser)
             }
         case SET_FRIEND_REQUESTS: {
             return {

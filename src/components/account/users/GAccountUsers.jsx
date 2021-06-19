@@ -1,17 +1,14 @@
 import React from 'react'
-import {apiAccount} from "../../api/Account";
-import {apiFriendship} from "../../api/Friendship";
+import {apiAccount} from "../../../api/Account";
 import {useSelector} from "react-redux";
+import style from './style.module.css'
+import GAccountUsersElem from "./GAccountUsersElem";
 
 const GAccountUsers = props => {
     const userId = useSelector(state => state.auth.userId);
     const [users, setUsers] = React.useState([]);
     const [usersDOM, setUsersDOM] = React.useState([]);
 
-    function addFriend (id) {
-        apiFriendship.addFriend(id)
-            .then ( result => console.log(result));
-    }
 
     React.useEffect(
         () => {
@@ -26,14 +23,7 @@ const GAccountUsers = props => {
                 el => {
                     let user = null;
                     if (el.idUser !== userId) {
-                        user =
-                            <li key={el.idUser} className={'g-account-users__elem'}>
-                                <div className={'g-account-users__elem-body'}>
-                                    <span>Имя пользователя</span>
-                                    <span>{el.username}</span>
-                                </div>
-                                <button className={'button'} onClick={() => addFriend(el.idUser)}>Добавить в друзья</button>
-                            </li>
+                        user = <GAccountUsersElem el={el} key={el.idUser} />
                         array.push(user);
                     }
                 }
@@ -42,8 +32,8 @@ const GAccountUsers = props => {
         }, [users, userId]
     )
     return (
-        <div className={'g-account-users'}>
-            <ul className={'g-account-users__list'}>
+        <div className={style.body}>
+            <ul className={style.list}>
                 {usersDOM}
             </ul>
         </div>

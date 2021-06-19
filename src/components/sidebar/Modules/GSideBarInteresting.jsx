@@ -32,7 +32,7 @@ const GSideBarInteresting = props => {
         }
     }, [props.events, dispatch]);
     return (
-        <GSwiper array={eventsDOM} />
+        <GSwiper array={eventsDOM} spv={1.5}/>
     )
 }
 

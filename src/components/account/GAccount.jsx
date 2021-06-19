@@ -1,10 +1,10 @@
 import React from 'react'
-import {Switch, Route, useParams} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import GAccountPage from "./page/GAccountPage";
 import '../../style/account/account.css'
-import GAccountFriends from "./GAccountFriends";
-import GAccountMessages from "./GAccountMessages";
-import GAccountUsers from "./GAccountUsers";
+import GAccountFriends from "./friends/GAccountFriends";
+import GAccountMessages from "./messages/GAccountMessages";
+import GAccountUsers from "./users/GAccountUsers";
 import GAccountRequests from "./GAccountRequests";
 import GAccountHeader from "./header/GAccountHeader";
 

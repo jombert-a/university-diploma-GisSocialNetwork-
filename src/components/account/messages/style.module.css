@@ -1,0 +1,59 @@
+.body {
+    width: 1000px;
+    padding: 30px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    border-radius: 16px;
+}
+
+.chat {
+    width: 600px;
+    background-color: aliceblue;
+    border-radius: 8px;
+    padding: 16px;
+    height: 540px;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column;
+    position: relative;
+}
+
+.inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.g-account-messages__el {
+    display: flex;
+}
+
+.g-account-messages__el--end {
+    justify-content: flex-end;
+}
+
+.g-account-messages__input {
+    position: absolute;
+    bottom: 8px;
+    width: 568px;
+    display: flex;
+}
+
+.g-account-messages__input textarea {
+    flex-grow: 1;
+}
+
+.g-account-messages__chat-item {
+    list-style: none;
+    border-bottom: 1px solid #000;
+}
+
+.g-account-messages__chat-item a {
+    text-decoration: unset;
+    color: #000;
+}
+
+.g-account-messages__last-message {
+    background-color: #7C9CBF;
+    padding: 4px;
+}
