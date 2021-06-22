@@ -1,8 +1,10 @@
 import React from 'react'
-import {apiMessages} from "../../api/Messages";
+import {apiMessages} from "../../../api/Messages";
 import {useDispatch, useSelector} from "react-redux";
-import {SET_MESSAGES, SET_NEW_MESSAGE} from "../../store/reducers/accountReducer";
-import { SET_OPENED_CHAT} from "../../store/reducers/messageReducer";
+import {SET_MESSAGES, SET_NEW_MESSAGE} from "../../../store/reducers/accountReducer";
+import { SET_OPENED_CHAT} from "../../../store/reducers/messageReducer";
+import style from './style.module.css'
+import GAccountChatMessage from "./GAccountChatMessage";
 
 const GAccountChat = props => {
     const [messagesDOM, setMessagesDOM] = React.useState([]);
@@ -22,7 +24,6 @@ const GAccountChat = props => {
     React.useEffect(
         () => {
             if (receivedMessage && receivedMessage.chatId && receivedMessage.chatId === props.id) {
-                console.log('received message', receivedMessage.message);
                 apiMessages.getMessages(props.id)
                     .then(result => {
                         dispatch({type: SET_MESSAGES, payload: result})
@@ -49,8 +50,7 @@ const GAccountChat = props => {
             if (messages.length > 0) {
                 let array = [];
                 messages.filter(el=>el.chatId === props.id).forEach((el, index) => {
-                    const message =
-                        <p key={index} className={`g-account-messages__el ${el.userId === userId ? 'g-account-messages__el--end' : ''}`}>{el.messageText}</p>
+                    const message = <GAccountChatMessage key={index} el={el} id={userId}/>
                     array.push(message);
                 })
                 setMessagesDOM(array);
@@ -61,10 +61,10 @@ const GAccountChat = props => {
 
     return (
         <div>
-            <div className={"g-account-messages__chat"}>
+            <div className={style.chat}>
                 {messagesDOM}
             </div>
-            <div className={"g-account-messages__input"}>
+            <div className={style.input}>
                 <textarea value={newMessage} onChange={(e) => setNewMessage(e.target.value)}/>
                 <button onClick={() => newMessageHandler(messages)}>Отправить</button>
             </div>

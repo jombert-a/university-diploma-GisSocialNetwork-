@@ -1,0 +1,29 @@
+.message {
+    display: flex;
+}
+
+.message--end {
+    justify-content: flex-end;
+}
+
+.chat {
+    width: 600px;
+    background-color: mistyrose;
+    border-radius: 8px;
+    padding: 16px;
+    height: 540px;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column;
+    position: relative;
+}
+
+.input {
+    bottom: 8px;
+    width: 100%;
+    display: flex;
+}
+
+.input textarea {
+    flex-grow: 1;
+}

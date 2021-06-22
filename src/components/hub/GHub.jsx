@@ -5,6 +5,7 @@ import {SET_CHATS, SET_FRIEND_REQUESTS, SET_FRIENDS} from "../../store/reducers/
 import {apiChatRooms} from "../../api/ChatRooms";
 import {HubConnectionBuilder} from "@microsoft/signalr";
 import {SET_RECEIVED_MESSAGE} from "../../store/reducers/messageReducer";
+import style from "./style.module.css";
 
 const GHub = props => {
     const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const GHub = props => {
     const username = useSelector(state => state.auth.username);
     const newMessage = useSelector(state => state.messages.newMessage);
     const [ connection, setConnection ] = React.useState(null);
+    const [receivedMessage, setReceivedMessage] = React.useState({});
     /* for connection */
 
     React.useEffect(
@@ -55,7 +57,7 @@ const GHub = props => {
                         connection.invoke('Enter', username);
                         connection.on('Receive', function (message, userName, userId, chatId) {
                             dispatch({type: SET_RECEIVED_MESSAGE, payload: {message, userName, userId, chatId}});
-
+                            setReceivedMessage({message, userName, userId, chatId});
                         });
                         connection.on("Notify", function (message) {
                             console.log(message);
@@ -72,8 +74,29 @@ const GHub = props => {
         }, [newMessage, connection]
     )
 
+    const [notify, setNotify] = React.useState(<></>)
+
+    React.useEffect(
+        () => {
+            console.log(receivedMessage);
+            if (receivedMessage?.userId !== userId)
+                setNotify(
+                    <div className={style.message}>
+                        <h5>{receivedMessage.userName}</h5>
+                        {receivedMessage.message}
+                    </div>)
+            // setTimeout(
+            //     () => {
+            //         setNotify(<></>)
+            //     }, 5000
+            // )
+        }, [receivedMessage, userId]
+    )
+
     return (
-        <></>
+        <div className={'g-hub'}>
+            {notify}
+        </div>
     )
 }
 

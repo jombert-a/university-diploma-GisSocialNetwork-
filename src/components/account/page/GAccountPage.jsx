@@ -72,6 +72,8 @@ const GAccountPage = props => {
             .then (result => console.log(result));
     }
 
+    console.log((params.id !== undefined) && friendsId.includes(+params.id));
+
     return (
         <div className={style.body}>
             <header className={style.header}>
@@ -101,13 +103,14 @@ const GAccountPage = props => {
                         }
                     </div>
                     {
-                        params.id && friendsId.includes(+params.id) ?
+
+                        (params.id !== undefined) && (friendsId.includes(+params.id) ?
                         <button className={'button button--tab'} onClick={() => deleteFriend(params.id)}>
                             Удалить из друзей
                         </button> :
                         <button className={'button button--tab'} onClick={() => addFriend(params.id)}>
                             Добавить в друзья
-                        </button>
+                        </button>)
                     }
                 </div>
             </header>

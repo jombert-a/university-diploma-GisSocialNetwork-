@@ -3,8 +3,8 @@
     padding: 30px 10px;
     margin-left: auto;
     margin-right: auto;
-    background: #fff;
     border-radius: 16px;
+    background: #fff;
 }
 
 .chat {
@@ -24,36 +24,8 @@
     justify-content: space-between;
 }
 
-.g-account-messages__el {
-    display: flex;
-}
-
-.g-account-messages__el--end {
-    justify-content: flex-end;
-}
-
-.g-account-messages__input {
-    position: absolute;
-    bottom: 8px;
-    width: 568px;
-    display: flex;
-}
-
-.g-account-messages__input textarea {
-    flex-grow: 1;
-}
-
-.g-account-messages__chat-item {
-    list-style: none;
-    border-bottom: 1px solid #000;
-}
-
-.g-account-messages__chat-item a {
-    text-decoration: unset;
-    color: #000;
-}
-
-.g-account-messages__last-message {
-    background-color: #7C9CBF;
-    padding: 4px;
+.chat-list {
+    background: #fff;
+    height: 100%;
+    min-width: 200px;
 }

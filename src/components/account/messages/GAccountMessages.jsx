@@ -3,7 +3,7 @@ import {apiChatRooms} from "../../../api/ChatRooms";
 import {SET_CHATS} from "../../../store/reducers/accountReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useLocation} from "react-router-dom";
-import GAccountChat from "../GAccountChat";
+import GAccountChat from "../chat/GAccountChat";
 import  '../../../style/account/accountMessages.css';
 import style from './style.module.css'
 
@@ -55,7 +55,7 @@ const GAccountMessages = props => {
         <div className={style.body}>
             <h4>Мои диалоги</h4>
             <div className={style.inner}>
-                <ul>
+                <ul className={style['chat-list']}>
                     {chatsDOM}
                 </ul>
                 {

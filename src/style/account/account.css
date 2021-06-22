@@ -132,8 +132,12 @@
 }
 
 .g-account-requests {
-    width: 100%;
+    width: 1000px;
+    margin: 0 auto;
     height: 100%;
+    background: #fff;
+    padding: 16px;
+    border-radius: 16px;
 }
 
 .g-account-requests__list {
@@ -144,6 +148,10 @@
     align-items: center;
     list-style: none;
     display: flex;
-    width: 50%;
     justify-content: space-between;
+    background: #DBE2EA;
+    width: 100%;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 2px 1px #70AF98;
 }

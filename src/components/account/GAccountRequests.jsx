@@ -22,6 +22,7 @@ const GAccountRequests = props => {
                             <div>
                                 <p>{el.username}</p>
                                 <p>{el.createdTime.split('T')[0]}</p>
+                                <p>{el.createdTime.split('T')[1]}</p>
                             </div>
                             <button className={'button'} onClick={() => acceptFriendship(el, 2)}>Принять</button>
                             <button className={'button'}>Отклонить</button>

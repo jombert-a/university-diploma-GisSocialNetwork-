@@ -5,6 +5,14 @@ export const apiFriendship = {
         return instance.get(`Friendship/GetFriends/${userId}`)
             .then ( response => response.data );
     },
+    addFriend (receiverId) {
+        const token = sessionStorage.getItem('token');
+        return instance.post(`Friendship/${receiverId}`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    },
     getFriendRequests () {
         const token = sessionStorage.getItem('token');
 

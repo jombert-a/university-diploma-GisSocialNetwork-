@@ -11,7 +11,9 @@ import GHub from "../hub/GHub";
 
 const GMain = (props) => {
     let history = useHistory();
-    let isAuth = useSelector(state => state.auth.isAuth);
+    const isAuth = useSelector(state => state.auth.isAuth);
+
+
     React.useEffect(
         () => {
             history.push(`/${props.location.en}?lng=${props.coords.lng}&lat=${props.coords.lat}`);
