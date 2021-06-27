@@ -6,7 +6,6 @@ export const apiReviews = {
             .then(response => response.data)
     },
     postNewReview (typeId, entityId, ratingValue, reviewText) {
-        console.log(typeof ratingValue);
         const token = sessionStorage.getItem('token');
         return instance.post(`Reviews`,
             {

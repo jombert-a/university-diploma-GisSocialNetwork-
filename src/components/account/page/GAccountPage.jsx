@@ -72,8 +72,6 @@ const GAccountPage = props => {
             .then (result => console.log(result));
     }
 
-    console.log((params.id !== undefined) && friendsId.includes(+params.id));
-
     return (
         <div className={style.body}>
             <header className={style.header}>

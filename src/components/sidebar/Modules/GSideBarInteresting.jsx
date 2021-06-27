@@ -1,6 +1,6 @@
 import React from 'react'
 import {SET_SELECTED_EVENT} from "../../../store/reducers/eventsReducer";
-import {FLY_TO, SET_SELECTED_TYPE} from "../../../store/reducers/globalReducer";
+import {FLY_TO, SET_SELECTED_TYPE, SET_SIDEBAR_TYPE} from "../../../store/reducers/globalReducer";
 import {useDispatch} from "react-redux";
 import {GSwiper} from "../../common/swiper";
 import '../../../style/sidebar/interesting-card.css';
@@ -18,6 +18,7 @@ const GSideBarInteresting = props => {
                          onClick={() => {
                              dispatch({type:SET_SELECTED_EVENT, payload: el});
                              dispatch({type:SET_SELECTED_TYPE, payload: 'event'});
+                             dispatch({type:SET_SIDEBAR_TYPE, payload: 'info'});
                              dispatch({type: FLY_TO, payload: {lat: el.way.coordinates[0], lng: el.way.coordinates[1]}});
                          }}>
                         <div className={'interesting-card__img'}>

@@ -4,9 +4,7 @@ import {apiLocation} from "../api/Location";
 
 
 function* fetchCityWorker() {
-    console.log('test');
     const data = yield call(apiLocation.getCityByCoords);
-    console.log(data);
     yield put(setCity(data));
 }
 

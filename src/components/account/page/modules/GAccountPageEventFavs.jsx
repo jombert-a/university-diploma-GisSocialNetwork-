@@ -9,7 +9,6 @@ const GAccountPageEventFavs = props => {
 
     React.useEffect(
         () => {
-            console.log(props.ids);
             let p = [];
             props.ids.forEach( el =>
                 p.push(apiEvents.getEventById(el))
@@ -37,7 +36,6 @@ const GAccountPageEventFavs = props => {
                         </div>
                     </div>
                 )
-                console.log(el);
             })
             setItemsDOM(temp);
         }, [items]

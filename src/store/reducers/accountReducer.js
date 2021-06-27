@@ -30,6 +30,7 @@ export function accountReducer (state = initialState, action) {
             }
         }
         case SET_CHATS: {
+            console.log(action.payload)
             return {
                 ...state,
                 chats: action.payload

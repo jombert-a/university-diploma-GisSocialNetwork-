@@ -50,7 +50,7 @@ const GMapMarkers = props => {
             setSelectedEntity(
                 <Marker
                     position={[selectedEntityCoords.lng, selectedEntityCoords.lat]}
-                    icon={getIcon(32, iconData)}>
+                    icon={getIcon(100, iconData)}>
                 </Marker>)
         }
         else setSelectedEntity(<></>)

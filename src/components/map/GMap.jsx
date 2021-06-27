@@ -117,6 +117,9 @@ const GMap = (props) => {
                    const way = route.map(el => L.latLng(el[1], el[0]));
                    RoutingMachineRef.current = L.Routing.control({
                        waypoints: way,
+                       createMarker: function(i, waypoint, n) {
+                           return L.marker(waypoint.latLng, {icon: L.icon({iconUrl: require('../../assets/svg/location-pin.svg').default, iconSize: [38, 95]})})
+                       }
                    }).addTo(map)
                }
                else {

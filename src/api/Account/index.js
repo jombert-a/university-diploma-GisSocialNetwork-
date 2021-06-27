@@ -27,7 +27,6 @@ export const apiAccount = {
             .then (response => response.data)
     },
     editAccount (payload) {
-        console.log(payload);
         const token = sessionStorage.getItem('token');
         return instance.put(`Account/${payload.idUser}`, payload,
             {

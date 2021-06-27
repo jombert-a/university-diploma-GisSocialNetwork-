@@ -32,7 +32,6 @@ const GSideBarInfoPlace = props => {
 
     React.useEffect(
         () => {
-            console.log(data);
         }, [data]
     )
 

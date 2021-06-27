@@ -38,7 +38,6 @@ const GSideBarNewPlaceForm = props => {
 
     React.useEffect(
         () => {
-            console.log(place)
         }, [place]
     )
 

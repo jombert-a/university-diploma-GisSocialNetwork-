@@ -16,7 +16,6 @@ const GAccountRequests = props => {
             let array = [];
             requests.forEach(
                 el => {
-                    console.log(el);
                     const request =
                         <li key={el.idUser} className={'g-account-requests__elem'}>
                             <div>

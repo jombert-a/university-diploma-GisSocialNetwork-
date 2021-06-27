@@ -19,6 +19,7 @@ export function routesReducer (state = initialState, action) {
             }
         }
         case SET_SELECTED_ROUTE: {
+            console.log(action.payload)
             return {
                 ...state,
                 selectedRoute: action.payload

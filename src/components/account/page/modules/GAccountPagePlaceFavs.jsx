@@ -9,7 +9,6 @@ const GAccountPagePlaceFavs = props => {
 
     React.useEffect(
         () => {
-            console.log(props.ids);
             let p = [];
             props.ids.forEach( el =>
                 p.push(apiPlaces.getDetailById(el))

@@ -57,6 +57,10 @@ const GHub = props => {
                         connection.invoke('Enter', username);
                         connection.on('Receive', function (message, userName, userId, chatId) {
                             dispatch({type: SET_RECEIVED_MESSAGE, payload: {message, userName, userId, chatId}});
+                            apiChatRooms.getUserChatRooms()
+                                .then ( result => {
+                                    dispatch({type: SET_CHATS, payload: result})
+                                })
                             setReceivedMessage({message, userName, userId, chatId});
                         });
                         connection.on("Notify", function (message) {
@@ -78,18 +82,17 @@ const GHub = props => {
 
     React.useEffect(
         () => {
-            console.log(receivedMessage);
             if (receivedMessage?.userId !== userId)
                 setNotify(
                     <div className={style.message}>
                         <h5>{receivedMessage.userName}</h5>
                         {receivedMessage.message}
                     </div>)
-            // setTimeout(
-            //     () => {
-            //         setNotify(<></>)
-            //     }, 5000
-            // )
+            setTimeout(
+                () => {
+                    setNotify(<></>)
+                }, 5000
+            )
         }, [receivedMessage, userId]
     )
 

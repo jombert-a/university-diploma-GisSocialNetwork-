@@ -6,6 +6,11 @@ import {apiRoutes} from "../../../api/Routes";
 const GSideBarNewRouteForm = props => {
     const dispatch = useDispatch();
 
+    const defaultState = {
+        way: {
+            coordinates: []
+        }
+    }
     const [route, setRoute] = React.useState({
         way: {
             type: 'LineString',
@@ -48,15 +53,16 @@ const GSideBarNewRouteForm = props => {
     React.useEffect(
         () => {
             return function cleanup() {
-                dispatch({type: SET_SELECTED_ROUTE, payload: []})
+                dispatch({type: SET_SELECTED_ROUTE, payload: defaultState})
             }
-        }, [dispatch]
+            // eslint-disable-next-line
+        }, []
     )
 
     const coordinatesDOM = React.useMemo(
         () => {
             if (checkEmpty()) {
-                dispatch({type: SET_SELECTED_ROUTE, payload: coordinates});
+                dispatch({type: SET_SELECTED_ROUTE, payload: {way: {coordinates}}});
             }
 
             function deletePoint(index) {

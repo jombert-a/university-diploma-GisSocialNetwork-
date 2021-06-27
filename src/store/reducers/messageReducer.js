@@ -38,7 +38,6 @@ export function messagesReducer (state = initialState, action) {
             }
         }
         case ADD_TO_MESSAGES: {
-            console.log('add to messages', action.payload);
             return {
                 ...state,
                 messages: [...state.messages, action.payload]

@@ -1,18 +1,24 @@
 import React from "react";
 import {apiEvents} from "../../../api/Events";
 import {apiFavourites} from "../../../api/Favourites";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {FLY_TO} from "../../../store/reducers/globalReducer";
 
 const GSideBarInfoEvent = (props) => {
     const [data, setData] = React.useState();
     const isAuth = useSelector(state => state.auth.isAuth);
+    const dispatch = useDispatch()
 
     React.useEffect( () => {
         apiEvents.getEventById(props.event.idEntity)
             .then( response => setData(response));
     }, [props.event.idEntity])
 
-    console.log(data);
+    React.useEffect(() => {
+        return function cleanup() {
+            dispatch({type: FLY_TO, payload: {lat: null, lng: null}});
+        }
+    }, [dispatch])
 
     return (
         <>

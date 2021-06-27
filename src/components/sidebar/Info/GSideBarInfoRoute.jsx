@@ -4,7 +4,6 @@ import {SET_SELECTED_ROUTE} from "../../../store/reducers/routesReducer";
 import {apiFavourites} from "../../../api/Favourites";
 
 const GSideBarInfoRoute = props => {
-    console.log(props);
     const [routePoints, setRoutesPoints] = React.useState([]);
 
     const isAuth = useSelector(state => state.auth.isAuth);

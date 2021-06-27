@@ -31,7 +31,6 @@ const GSideBarInfoController = (props) => {
             default:
                 setBuffer(<div>default</div>);
         }
-        console.log(buffer);
         //eslint-disable-next-line
     }, [props.type, objectInfo, eventInfo])
     return (

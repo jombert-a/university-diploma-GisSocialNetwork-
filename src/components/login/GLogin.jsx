@@ -33,7 +33,7 @@ const GLogin = props => {
                     <input placeholder={'Логин'} className={'input'} type="text" value={login} onChange={(e) => setLogin(e.target.value)}/>
                 </label>
                 <label className={'g-login-form__label'}>
-                    <input placeholder={'Пароль'} className={'input'} type={hidden ? 'text' : password} value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    <input placeholder={'Пароль'} className={'input'} type={hidden ? 'password' : 'text'} value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </label>
                 <button className={'button'}>
                     Войти

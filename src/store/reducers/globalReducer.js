@@ -66,7 +66,6 @@ export const getLocation = store => store.global.location
 export function globalReducer (state = initialState, action) {
     switch (action.type) {
         case SET_SIDEBAR_TYPE: {
-            console.log(action.payload);
             return {
                 ...state,
                 sideBarType: action.payload

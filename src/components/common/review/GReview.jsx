@@ -23,7 +23,6 @@ const Review = props => {
 
     const isAuth = useSelector(state => state.auth.isAuth);
 
-    console.log(reviews);
 
     React.useEffect(
         () => {

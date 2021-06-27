@@ -2,7 +2,6 @@ import {instance} from "../index";
 
 export const apiFavourites = {
     addToFavourites(payload) {
-        console.log(payload);
         const token = sessionStorage.getItem('token');
         return instance.post('Favourites',
             {
